@@ -85,21 +85,21 @@ router.get('/logout', (req, res) => {
 })
 
 
-router.post('/:id/edit', (req, res)  => {
-    const user = req.session.user
-    const { username, cookingLevel} = req.body;
-    console.log(user)
-    User.findByIdAndUpdate(
-        { _id: req.params.id},
-        { username, cookingLevel}
-    )
-        .then((response) => {
-            console.log(response);
-                res.status(200).json(user);
-            })
-        .catch(err => {
-            console.log(err)
-    })
-});
+// router.post('/:id/edit', (req, res)  => {
+//     const user = req.session.user
+//     const { username, cookingLevel} = req.body;
+//     console.log(user)
+//     User.findByIdAndUpdate(
+//         { _id: req.params.id},
+//         { username, cookingLevel}
+//     )
+//         .then((response) => {
+//             console.log(response);
+//                 res.status(200).json(user);
+//             })
+//         .catch(err => {
+//             console.log(err)
+//     })
+// });
 
 module.exports = router
