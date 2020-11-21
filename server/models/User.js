@@ -17,7 +17,8 @@ const userSchema = new Schema({
         required: true
     },
     cookingLevel: {
-        enum: ['Beginner', 'Amateur Chef', 'UltraPro Chef']
+        type: String,
+        required: true
     },
     imageUrl: String
 })
