@@ -16,8 +16,19 @@ export default class Logout extends Component {
     // }
     service = new AuthService()
 
-    componentDidMount() {
+    // componentDidMount() {
+    //     this.service.logout()
+    // }
+
+    logout = () => {
         this.service.logout()
+        .then(response =>{
+            console.log(response)
+            this.props.getTheUser(null)
+        })
+        .catch(err => {
+            console.error(err)
+        })
     }
 
     render() {
