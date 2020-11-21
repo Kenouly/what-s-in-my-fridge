@@ -71,7 +71,7 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/loggedin', (req, res) => {
-    console.log('loggedinRoute', req.session.user)
+    console.log(req.session.user)
     if(req.session.user){
         res.status(200).json(req.session.user)
     } else {
@@ -83,5 +83,23 @@ router.get('/logout', (req, res) => {
     req.session.destroy()
     res.status(200).json({message: 'User logged out.'})
 })
+
+
+router.post('/:id/edit', (req, res)  => {
+    const user = req.session.user
+    const { username, cookingLevel} = req.body;
+    console.log(user)
+    User.findByIdAndUpdate(
+        { _id: req.params.id},
+        { username, cookingLevel}
+    )
+        .then((response) => {
+            console.log(response);
+                res.status(200).json(user);
+            })
+        .catch(err => {
+            console.log(err)
+    })
+});
 
 module.exports = router

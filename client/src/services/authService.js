@@ -25,12 +25,14 @@ class AuthService {
     }
 
     loggedin = () => {
-      console.log('hello')
         return this.service.get('/auth/loggedin')
-        .then((response) => {
-          console.log(response)
-          return response.data
-        })
+        .then((response) => response.data)
+    }
+
+    edit = () => {
+      console.log('hello')
+      return this.service.post('/auth/:id/edit')
+      .then((response) => response.data)
     }
 
 }

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import {Link} from 'react-router-dom';
 
 export default class Profile extends Component {
 
     render() {
         console.log(this.props)
-        const {username, email, cookingLevel} = this.props.user
+        const {_id, username, email, cookingLevel} = this.props.user
         return (
             <div>
                 <div>
@@ -12,7 +13,7 @@ export default class Profile extends Component {
                     <p>Username: {username} </p>
                     <p>Email: {email}</p>
                     <p>Cooking Level: {cookingLevel}</p>
-                    <button>Edit</button>
+                    <Link to={`/${_id}/edit`}>Edit</Link>
                 </div>
                 <div>
                     <h2>Your fridge</h2>

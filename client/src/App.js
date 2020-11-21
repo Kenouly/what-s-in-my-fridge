@@ -1,4 +1,4 @@
-import React, {Component, useReducer} from 'react';
+import React, {Component} from 'react';
 import {Switch, Route} from 'react-router-dom'
 // import logo from './logo.svg';
 import './App.css';
@@ -9,7 +9,7 @@ import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import Logout from './components/Logout/Logout';
 import AuthService from './services/authService';
-// import ProtectedRoute from './components/ProtectedRoute/ProtectedRoute';
+import EditProfile from './components/Profile/EditProfile';
 
 export default class App extends Component {
 
@@ -41,21 +41,9 @@ service = new AuthService()
     })
   }
 
-  // logout = () => {
-  //   this.service.logout()
-  //   .then(response => {
-  //     console.log(response)
-  //     // this.setState({
-  //     //   loggedInUser: null
-  //     // })
-  //   })
-  //   .catch(err => {
-  //     console.log(err)
-  //   })
-  // }
-
   render() {
     console.log(this.state)
+
     return (
       <div className='App'>
         <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser}/>
@@ -64,11 +52,13 @@ service = new AuthService()
           <Route exact path='/' render={() => <Home isLoggedIn={!!this.state.loggedInUser} user={this.state.loggedInUser}/>} />
           <Route path='/signup' component={Signup} />
           <Route path='/login' render={() => <Login getTheUser={this.getTheUser}/>}/>
+          <Route path='/logout' component={Logout}/>
           {this.state.loggedInUser && 
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
           }
-          {/* <ProtectedRoute component={Profile} path="/profile" user={this.state.loggedInUser} /> */}
-          <Route path='/logout' render={() => <Logout getTheUser={this.getTheUser}/>}/>
+          {this.state.loggedInUser &&
+          <Route path='/:id/edit' render={() => <EditProfile user={this.state.loggedInUser}/>}/>
+          }
         </Switch>
       </div>
     )

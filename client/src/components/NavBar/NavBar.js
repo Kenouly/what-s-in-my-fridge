@@ -5,8 +5,8 @@ import AuthService from '../../services/authService'
 export default class NavBar extends Component {
 
     service = new AuthService()
-    
-        logout = () => {
+
+    logout = () => {
         this.service.logout()
         .then(response =>{
             console.log(response)
