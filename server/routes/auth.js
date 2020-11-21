@@ -31,7 +31,7 @@ router.post('/signup', async (req, res) => {
         const user = await User.create({username: username, email: email, password: hashPass, cookingLevel: cookingLevel})
 
         req.session.user = user
-        res.status(200).json({message: `The account for ${user.username} is created.`})
+        res.status(200).json(user)
         return;
     }
     catch(err) {
@@ -57,10 +57,12 @@ router.post('/login', async (req, res) => {
         } else {
                 const passwordCorrect = await bcrypt.compare(password, user.password)
                 if(passwordCorrect) {
-                    req.session.user = user
-                    res.status(200).json({message: 'You are successfully logged in.'})
+                    res.status(200).json({
+                        user: req.session.user,
+                        message: 'User is logged in'
+                    })
                 } else {
-                res.status(400).json({message: 'Please enter correct email and password.'})
+                    res.status(400).json({message: 'Please enter correct email and password.'})
                 }
         }
     }
@@ -71,14 +73,18 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/loggedin', (req, res) => {
+    console.log('loggedinRoute',req.session)
     if(req.session.user){
-        res.status(200).json({message: 'User logged in.'})
+        res.status(200).json({
+            user: req.session.user, 
+            message: 'User logged in.'
+        })
     } else {
         res.status(400).json({message: 'No user in session.'})
     }
 })
 
-router.post('/logout', (req, res) => {
+router.get('/logout', (req, res) => {
     req.session.destroy()
     res.status(200).json({message: 'User logged out.'})
 })

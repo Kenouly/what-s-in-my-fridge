@@ -15,7 +15,7 @@ const cors = require('cors')
 
 
 mongoose
-  .connect('mongodb://localhost/what-s-in-my-fridge', {useNewUrlParser: true})
+  .connect('mongodb://localhost/what-s-in-my-fridge', {useNewUrlParser: true, useUnifiedTopology: true})
   .then(x => {
     console.log(`Connected to Mongo! Database name: "${x.connections[0].name}"`)
   })
@@ -35,7 +35,10 @@ app.use(session({
   secret: process.env.SESSION_SECRET,
   store: new Mongostore({
     mongooseConnection: mongoose.connection
-  })
+  }),
+  proxy: true,
+  resave: true,
+  saveUninitialized: true
 }))
 
 app.use(cors({
