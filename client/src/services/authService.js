@@ -29,9 +29,9 @@ class AuthService {
         .then((response) => response.data)
     }
 
-    edit = () => {
+    edit = (userId, username, cookingLevel) => {
       console.log('hello')
-      return this.service.post('/auth/:id/edit')
+      return this.service.post(`/auth/${userId}/edit`, {username, cookingLevel})
       .then((response) => response.data)
     }
 

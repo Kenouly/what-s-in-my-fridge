@@ -57,8 +57,9 @@ service = new AuthService()
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
           }
           {this.state.loggedInUser &&
-          <Route path='/:id/edit' render={() => <EditProfile user={this.state.loggedInUser}/>}/>
+          <Route path='/:id/edit' render={(props) => <EditProfile {...props} user={this.state.loggedInUser}/>}/>
           }
+          {/* <Route path='/:id/edit' component={EditProfile}/> */}
         </Switch>
       </div>
     )

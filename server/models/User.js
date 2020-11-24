@@ -20,7 +20,7 @@ const userSchema = new Schema({
         type: String,
         required: true
     },
-    imageUrl: String
+    imageUrl: String,
 })
 
 const User = mongoose.model('User', userSchema)

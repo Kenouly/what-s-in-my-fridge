@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
+import './Profile.css';
 
 export default class Profile extends Component {
 
@@ -7,7 +8,7 @@ export default class Profile extends Component {
         console.log(this.props)
         const {_id, username, email, cookingLevel} = this.props.user
         return (
-            <div>
+            <div className="profile">
                 <div>
                     <h2>Your information</h2>
                     <p>Username: {username} </p>

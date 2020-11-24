@@ -4,6 +4,7 @@ import AuthService from '../../services/authService';
 
 export default class EditProfile extends Component {
 
+
     state = {
         username: this.props.user.username,
         email: this.props.user.email,
@@ -15,14 +16,15 @@ export default class EditProfile extends Component {
 
     submitFormHandler = e => {
         e.preventDefault()
-        this.service.edit(this.state.username, this.state.cookingLevel)
+        this.service.edit(this.props.match.params.id, this.state.username, this.state.cookingLevel)
         .then(response => {
             console.log(response)
             this.setState({
-                username: this.state.username,
-                cookingLevel: this.state.cookingLevel,
-                redirect: true
+                username: response.username,
+                cookingLevel: response.cookingLevel,
+                redirect: true,
             })
+            window.location.reload()
         })
         .catch(err => {
             console.log(err)
@@ -37,6 +39,8 @@ export default class EditProfile extends Component {
     }
 
     render() {
+                // console.log(this.props.match.params.id)
+        console.log(this.state)
         if(this.state.redirect){
             return <Redirect to="/profile"></Redirect>
         }

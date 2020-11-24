@@ -1,0 +1,16 @@
+.left {
+    width: 20%;
+    float: left;
+    background-color: rgba(83, 86, 90, 0.7);
+    min-height: 100vh;
+}
+
+.nav {
+    margin: 0;
+    padding: 50px;
+    list-style: none;
+}
+
+.nav li {
+    margin: 10px 0;
+}
