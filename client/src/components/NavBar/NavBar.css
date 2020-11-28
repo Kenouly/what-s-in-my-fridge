@@ -1,0 +1,28 @@
+.navBar {
+    width: 20%;
+    height: 100%;
+    background-color: rgba(83, 86, 90, 0.8);
+    position: fixed;
+    padding-top: 60px;
+}
+
+.nav {
+    margin: 0;
+    padding: 50px;
+    list-style: none;
+}
+
+.nav li {
+    margin: 10px 0;
+}
+
+.navLink {
+    color: #818181; 
+    text-decoration: none;
+    font-size: 25px;
+    transition: 0.3s
+}
+
+.navLink:hover {
+    color: white;
+}

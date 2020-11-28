@@ -1,23 +1,19 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
+import './Home.css';
 
 export default class Home extends Component {
 
     render() {
         if(!this.props.isLoggedIn) {
             return (
-            <div>
-                <h2>What's in my fridge?</h2>
-                <p>Description</p>
-                <Link to='/signup'>Signup</Link>
-                <Link to='/login'>Login</Link>
+            <div className="home">
+                <h1>What's in my fridge?</h1>
             </div>
             )
         }
         return (
-            <div>
-                    <p>Welcome {this.props.user.username}</p>
-                    <p>Description</p>
+            <div className="home">
+                    <h1>Welcome {this.props.user.username}</h1>
                     <button>Start</button>
             </div>
         )

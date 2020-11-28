@@ -1,32 +1,109 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom';
+import AuthService from '../../services/authService';
+import './Profile.css';
 
 export default class Profile extends Component {
 
-    render() {
-        console.log(this.props)
-        const {_id, username, email, cookingLevel} = this.props.user
-        return (
-            <div>
-                <div>
-                    <h2>Your information</h2>
-                    <p>Username: {username} </p>
-                    <p>Email: {email}</p>
-                    <p>Cooking Level: {cookingLevel}</p>
-                    <Link to={`/${_id}/edit`}>Edit</Link>
-                </div>
-                <div>
-                    <h2>Your fridge</h2>
-                    <button>Edit</button>
-                    <button>Delete</button>
-                </div>
-                <div>
-                    <h2>Your recipes</h2>
-                    <button>View</button>
-                    <button>Delete</button>
-                </div>
+    state = {
+        username: this.props.user.username,
+        email: this.props.user.email,
+        cookingLevel: this.props.user.cookingLevel,
+        isInEditMode: false,
+        isInUploadMode: false
+    }
 
-            </div>
-        )
+    service = new AuthService()
+
+    showEditMode = () => {
+        this.setState({
+            isInEditMode: !this.state.isInEditMode
+        })
+    }
+
+        showUploadMode = () => {
+        this.setState({
+            isInUploadMode: !this.state.isInUploadMode
+        })
+    }
+
+    changeHandler = e => {
+        const {name, value} = e.target
+        this.setState({
+            [name] : value
+        })
+    }
+
+    submitHandler = e => {
+        e.preventDefault()
+        this.service.edit(this.props.user._id, this.state.cookingLevel)
+        .then((user) => {
+            console.log(user)
+            this.setState({
+                cookingLevel: this.state.cookingLevel,
+                isInEditMode: false
+         })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
+    handleFileUpload = (e) => {
+    const uploadData = new FormData();
+    uploadData.append('picture', e.target.files[0]);
+    this.service.imageUpload(uploadData);
+  }
+
+    render() {
+        console.log(this.props.user.cookingLevel)
+        console.log(this.props.user.imageUrl)
+
+        return (
+            <div className="profile">
+                <h1>Your information</h1>
+                <div className="profile-details">
+                    <div className="profile-picture">
+                        <img
+                                src={this.props.user.imageUrl}
+                                alt=""
+                                onClick={this.showUploadMode}
+                        />
+                        <p><button onClick={this.showUploadMode}>Change picture</button></p>
+                    </div>
+                    {this.state.isInUploadMode ?
+                        <div className="form-popup">
+                            <form>
+                                <input
+                                    type="file"
+                                    name="profilePicture"
+                                    onChange={(e) => this.handleFileUpload(e)}
+                                />
+                                <button>Save</button>
+                            </form>
+                        </div>
+                    : " "}
+                    <div className="profile-info">
+                        <h4>Username</h4>
+                        <p>{this.state.username}</p>
+                        <h4>Email</h4>
+                        <p>{this.state.email}</p>
+                        <h4>Cooking Level</h4>
+                        <p>{this.state.cookingLevel}</p>
+                        <button onClick={this.showEditMode}>Edit</button>
+                    </div>
+                        {this.state.isInEditMode ?
+                            <div className="cookingLevel-dropdown">
+                                <select name="cookingLevel" defaultValue={this.state.cookingLevel} onChange={this.changeHandler}>
+                                    <option value='Beginner'>Beginner</option>
+                                    <option value='Amateur Chef'>Amateur Chef</option>
+                                    <option value='UltraPro Chef'>UltraPro Chef</option>
+                                </select>
+                                <button onClick={this.showEditMode}>X</button>
+                                <button onClick={this.submitHandler}>OK</button>
+                            </div>
+                        : " "}
+                        </div>
+                </div>
+            )
     }
 }

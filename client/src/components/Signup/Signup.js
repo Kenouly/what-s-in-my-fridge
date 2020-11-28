@@ -49,8 +49,8 @@ export default class Signup extends Component {
             return <Redirect to='/login'></Redirect>
         }
         return (
-            <div>
-                <h1>Signup</h1>
+            <div style={{paddingTop: "50px"}}>
+                <h1>Sign-up</h1>
                 <form onSubmit={this.submitFormHandler}>
                     <label>Username</label>
                     <input type='text' name='username' value={this.state.username} onChange={this.changeHandler} /><br></br>
@@ -72,7 +72,6 @@ export default class Signup extends Component {
                 </form>
                 {this.state.errorMessage}
             </div>
-            
         )
     }
 }
