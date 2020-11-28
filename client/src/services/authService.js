@@ -29,12 +29,15 @@ class AuthService {
         .then((response) => response.data)
     }
 
-    edit = (userId, username, cookingLevel) => {
-      console.log('hello')
-      return this.service.post(`/auth/${userId}/edit`, {username, cookingLevel})
+    edit = (userId, cookingLevel) => {
+      return this.service.post(`/auth/${userId}/edit`, {cookingLevel})
       .then((response) => response.data)
     }
 
+    imageUpload = (image) => {
+      return this.service.post('/auth/profile-picture', image)
+      .then((response => response.data))
+    } 
 }
 
 export default AuthService

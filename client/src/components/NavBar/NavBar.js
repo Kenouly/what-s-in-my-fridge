@@ -21,24 +21,25 @@ export default class NavBar extends Component {
     render() {
         if(this.props.isLoggedIn) {
             return (
-                <div className="left">
+                <div className="navBar">
                     <ul className="nav">
-                        <li><Link to='/' style={{ textDecoration: 'none', color: 'white' }}>Home</Link></li>
-                        <li><Link to='/find-recipes/' style={{ textDecoration: 'none', color: 'white' }}>Find a recipe</Link></li>
-                        <li><Link to='/profile' style={{ textDecoration: 'none', color: 'white' }}>My Profile</Link></li>
-                        <li><Link to='/about' style={{ textDecoration: 'none', color: 'white' }}>About</Link></li>
-                        <li><Link to='/logout' style={{ textDecoration: 'none', color: 'white' }} onClick={this.logout}>Logout</Link></li>
+                        <li><Link to='/' className="navLink">Home</Link></li>
+                        <li><Link to='/find-recipes/' className="navLink">Find a recipe</Link></li>
+                        <li><Link to='/my-recipes/' className="navLink">My recipes</Link></li>
+                        <li><Link to='/profile' className="navLink">My Profile</Link></li>
+                        <li><Link to='/about' className="navLink">About</Link></li>
+                        <li><Link to='/logout' className="navLink" onClick={this.logout}>Logout</Link></li>
                     </ul>
                 </div>
             )
         }
         return (
-            <div className="left">
+            <div className="navBar">
                     <ul className="nav">
-                        <li><Link to='/' style={{ textDecoration: 'none', color: 'white' }}>Home</Link></li>
-                        <li><Link to='/about' style={{ textDecoration: 'none', color: 'white' }}>About</Link></li>
-                        <li><Link to='/signup' style={{ textDecoration: 'none', color: 'white' }}>Signup</Link></li>
-                        <li><Link to='/login' style={{ textDecoration: 'none', color: 'white' }}>Login</Link></li>
+                        <li><Link to='/' className="navLink">Home</Link></li>
+                        <li><Link to='/about' className="navLink">About</Link></li>
+                        <li><Link to='/signup' className="navLink">Signup</Link></li>
+                        <li><Link to='/login' className="navLink">Login</Link></li>
                     </ul>
             </div>
         )

@@ -9,7 +9,6 @@ import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import Logout from './components/Logout/Logout';
 import AuthService from './services/authService';
-import EditProfile from './components/Profile/EditProfile';
 
 export default class App extends Component {
 
@@ -56,10 +55,6 @@ service = new AuthService()
           {this.state.loggedInUser && 
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
           }
-          {this.state.loggedInUser &&
-          <Route path='/:id/edit' render={(props) => <EditProfile {...props} user={this.state.loggedInUser}/>}/>
-          }
-          {/* <Route path='/:id/edit' component={EditProfile}/> */}
         </Switch>
       </div>
     )

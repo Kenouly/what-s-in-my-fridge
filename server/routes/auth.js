@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User');
 const bcryptSalt = 10;
 const ObjectId = require('mongodb').ObjectID;
+const uploadCloud = require('../configs/cloudinary')
 
 router.post('/signup', async (req, res) => {
     const {username, email, password, cookingLevel} = req.body
@@ -72,7 +73,7 @@ router.post('/login', async (req, res) => {
 })
 
 router.get('/loggedin', (req, res) => {
-    console.log(req.session.user)
+    console.log('user', req.session.user)
     if(req.session.user){
         res.status(200).json(req.session.user)
     } else {
@@ -88,13 +89,10 @@ router.get('/logout', (req, res) => {
 
 router.post('/:id/edit', (req, res)  => {
     const user = req.session.user
-    const { username, cookingLevel} = req.body;
-    // console.log(user)
-    // console.log('id', req.params.id)
-    // console.log('req params', req.params)
+    const {cookingLevel} = req.body;
     User.findByIdAndUpdate(
         { _id: ObjectId(req.params.id)},
-        {$set: { username, cookingLevel }},
+        {$set: { cookingLevel }},
         {new: true}
     )
         .then((user) => {
@@ -106,5 +104,25 @@ router.post('/:id/edit', (req, res)  => {
             console.log(err)
     })
 });
+
+router.post('/profile-picture', uploadCloud.single('picture'), (req, res) => {
+  if (!req.session.user) {
+    return res.status(401).json({ message: 'user not logged' })
+  }
+
+  const { username } = req.session.user
+
+  User.findOneAndUpdate({ username: username }, { imageUrl: req.file.path }, {returnOriginal: false})
+
+    .then((user) => {
+        req.session.user.imageUrl = req.file.path
+        console.log('image', user)
+        console.log(req.file.path)
+         res.status(200).json(user)
+    })
+    .catch((err) => {
+      res.status(500).json({ message: 'Something went wrong with uploading your profile picture.'})
+    })
+})
 
 module.exports = router

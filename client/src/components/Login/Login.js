@@ -45,7 +45,7 @@ export default class Login extends Component {
             return <Redirect to="/"></Redirect>
         }
         return (
-            <div>
+            <div style={{paddingTop: "50px"}}>
                 <h1>Login</h1>
                 <form onSubmit={this.submitFormHandler}>
                     <input type="text" name="email" placeholder="email" value={this.state.email} onChange={this.changeHandler}></input>

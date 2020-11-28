@@ -6,7 +6,7 @@ export default class Logout extends Component {
 
     render() {
         return (
-            <div>
+            <div style={{paddingTop: "50px"}}>
                 <p>User is logged out.</p>
                 <p>Please
                     <Link to='/login'>login</Link>
