@@ -88,11 +88,9 @@ export default class Profile extends Component {
                         <h4>Email</h4>
                         <p>{this.state.email}</p>
                         <h4>Cooking Level</h4>
-                        <p>{this.state.cookingLevel}</p>
-                        <button onClick={this.showEditMode}>Edit</button>
-                    </div>
+                        <p>{this.state.cookingLevel}<span style={{padding: "0 20px"}}><button onClick={this.showEditMode}>Edit</button></span></p>
                         {this.state.isInEditMode ?
-                            <div className="cookingLevel-dropdown">
+                            <div>
                                 <select name="cookingLevel" defaultValue={this.state.cookingLevel} onChange={this.changeHandler}>
                                     <option value='Beginner'>Beginner</option>
                                     <option value='Amateur Chef'>Amateur Chef</option>
@@ -102,6 +100,7 @@ export default class Profile extends Component {
                                 <button onClick={this.submitHandler}>OK</button>
                             </div>
                         : " "}
+                        </div>
                         </div>
                 </div>
             )

@@ -9,6 +9,7 @@ import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import Logout from './components/Logout/Logout';
 import AuthService from './services/authService';
+import Ingredients from './components/Ingredients/Ingredients';
 
 export default class App extends Component {
 
@@ -54,6 +55,9 @@ service = new AuthService()
           <Route path='/logout' component={Logout}/>
           {this.state.loggedInUser && 
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
+          }
+          {this.state.loggedInUser &&
+          <Route path='/find-recipes' component={Ingredients} />
           }
         </Switch>
       </div>

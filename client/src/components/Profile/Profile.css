@@ -1,5 +1,5 @@
 .profile {
-    padding: 200px 400px;
+    padding: 100px 400px;
 }
 
 .profile img {
@@ -15,6 +15,10 @@
         justify-content: space-evenly;
         margin-top: 50px;
         margin-left: 50px;
+        padding: 50px;
+        background-color: rgb(255, 255, 255, 0.5);
+        border: solid rgb(255, 255, 255, 0.5) 1px;
+        border-radius: 25px;
 }
 
 .profile-info {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 import './Home.css';
 
 export default class Home extends Component {
@@ -14,7 +15,7 @@ export default class Home extends Component {
         return (
             <div className="home">
                     <h1>Welcome {this.props.user.username}</h1>
-                    <button>Start</button>
+                    <Link to='/find-recipes'>Find a recipe</Link>
             </div>
         )
     }

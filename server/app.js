@@ -13,7 +13,7 @@ const session = require('express-session')
 const Mongostore = require('connect-mongo')(session)
 const cors = require('cors')
 
-
+// Connect to db
 mongoose
   .connect('mongodb://localhost/what-s-in-my-fridge', {useNewUrlParser: true, useUnifiedTopology: true})
   .then(x => {
@@ -70,12 +70,15 @@ app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
 // default value for title local
 app.locals.title = 'What\'s in my fridge?';
 
-
+// Routes
 const index = require('./routes/index');
 app.use('/', index);
 
 const auth = require('./routes/auth')
 app.use('/auth', auth)
+
+const ingredients = require('./routes/ingredients');
+app.use('/ingredients', ingredients)
 
 
 module.exports = app;

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import AuthService from '../../services/authService'
+import './Login.css'
 
 export default class Login extends Component {
 
@@ -45,7 +46,7 @@ export default class Login extends Component {
             return <Redirect to="/"></Redirect>
         }
         return (
-            <div style={{paddingTop: "50px"}}>
+            <div className="login-form">
                 <h1>Login</h1>
                 <form onSubmit={this.submitFormHandler}>
                     <input type="text" name="email" placeholder="email" value={this.state.email} onChange={this.changeHandler}></input>
