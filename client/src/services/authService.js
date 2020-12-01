@@ -38,6 +38,11 @@ class AuthService {
       return this.service.post('/auth/profile-picture', image)
       .then((response => response.data))
     } 
+
+    createRequest = () => {
+      return this.service.post('/ingredients/create')
+      .then((response) => response.data)
+    }
 }
 
 export default AuthService

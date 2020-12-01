@@ -8,7 +8,7 @@ const ingredientsContainerSchema = new Schema({
     }]
 })
 
-const IngredientsContainer = mongoose.model('Ingredient', ingredientsContainerSchema)
+const IngredientsContainer = mongoose.model('IngredientsContainer', ingredientsContainerSchema)
 
 module.exports = IngredientsContainer
 

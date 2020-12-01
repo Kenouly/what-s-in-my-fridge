@@ -21,7 +21,6 @@ export default class Ingredients extends Component {
         })
     }
 
-
     searchHandler = (e) => {
         let searchIngredient = e.target.value.toLowerCase()
         console.log(searchIngredient)

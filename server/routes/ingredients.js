@@ -5,7 +5,7 @@ const IngredientsContainer = require('../models/IngredientsContainer')
 const Ingredients = require('../models/Ingredients')
 
 
-//when start --> create requestId (session id)
+//when click on 'Find a recipe' --> create requestId (session id)
 router.post('/create', (req, res)=> {
     console.log('hello')
     IngredientsContainer.create({})
