@@ -10,8 +10,8 @@ export default class Ingredients extends Component {
         suggestions: [],
         selectedIngredient: '',
         quantity: 0,
+        measure: ' ',
         ingredientsList: [],
-        measures: ''
     }
 
     changeHandler = e => {
@@ -68,8 +68,7 @@ export default class Ingredients extends Component {
     addHandler = (item) => {
         console.log(item)
         this.setState({
-            quantity: item.quantity,
-            ingredientsList: [item.name, ...this.state.ingredientsList]
+            ingredientsList: [item, ...this.state.ingredientsList],
     })
   }
 
@@ -84,17 +83,23 @@ export default class Ingredients extends Component {
                     <label>Quantity</label>
                     <input type="number" name="quantity" onChange={this.changeHandler} value={this.state.quantity}/>
                     <label>Measures</label>
-                    <select onChange={this.changeHandler} name="measures" value={this.state.measures}>
-                        <option >Select measures</option>
+                    <select onChange={this.changeHandler} name="measure" value={this.state.measure}>
+                        <option >Select measure</option>
                         <option value='units'>units</option>
                         <option value='g'>g</option>
                         <option value='kg'>kg</option>
                     </select><br></br>
-                    <button onClick={() => this.addHandler()}>Add</button>
+                    <button onClick={(item) => this.addHandler(item)}>Add</button>
                 </form>
                 <div>
                     <h2>What's in my fridge?</h2>
-                    <li>{this.state.quantity} {this.state.measures} x {this.state.selectedIngredient} <span><button>Remove</button></span></li>
+                    {this.state.ingredientsList.map(item => {
+                        return (
+                            <li key={item.name}>
+                                {item.quantity} {item.measure} x {item.name} <span><button>Remove</button></span>
+                            </li>
+                        )
+                    })}
                 </div>
                 <div>
                     <h2>What do I want to cook?</h2>

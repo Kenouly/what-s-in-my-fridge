@@ -44,6 +44,10 @@ service = new AuthService()
   render() {
     console.log(this.state)
 
+    // if(this.state.ingredients && this.state.ingredients.length < 1){
+    //   return <h1>loading</h1>
+    // }
+
     return (
       <div className='App'>
         <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser}/>
