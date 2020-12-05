@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Switch, Route} from 'react-router-dom'
-// import logo from './logo.svg';
 import './App.css';
+import ingredientsFromJson from './ingredients.json';
 import Home from './components/Home/Home';
 import NavBar from './components/NavBar/NavBar';
 import Signup from './components/Signup/Signup';
@@ -15,6 +15,8 @@ export default class App extends Component {
 
   state = {
     loggedInUser: null,
+    createdContainer: null,
+    ingredients: ingredientsFromJson,
   }
 
 service = new AuthService()
@@ -41,6 +43,19 @@ service = new AuthService()
     })
   }
 
+  createRequest = () => {
+        this.service.createRequest()
+        .then(response =>{
+            console.log(response)
+            this.setState({
+              createdContainer: response
+            })
+        })
+        .catch(err => {
+            console.error(err)
+        })
+    }
+
   render() {
     console.log(this.state)
 
@@ -50,10 +65,10 @@ service = new AuthService()
 
     return (
       <div className='App'>
-        <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser}/>
+        <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser} createContainer={this.createRequest}/>
         {/* !! shortcut to force as boolean */}
         <Switch>
-          <Route exact path='/' render={() => <Home isLoggedIn={!!this.state.loggedInUser} user={this.state.loggedInUser}/>} />
+          <Route exact path='/' render={() => <Home isLoggedIn={!!this.state.loggedInUser} user={this.state.loggedInUser} createContainer={this.createRequest}/>} />
           <Route path='/signup' component={Signup} />
           <Route path='/login' render={() => <Login getTheUser={this.getTheUser}/>}/>
           <Route path='/logout' component={Logout}/>
@@ -61,7 +76,7 @@ service = new AuthService()
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
           }
           {this.state.loggedInUser &&
-          <Route path='/find-recipe' component={Ingredients} />
+          <Route path='/find-recipe' render={() => <Ingredients ingredients={this.state.ingredients} container={this.state.createdContainer}/>} />
           }
         </Switch>
       </div>

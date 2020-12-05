@@ -1,17 +1,17 @@
 import React, { Component } from 'react'
-import ingredientsFromJson from '../../ingredients.json';
 import {Link} from 'react-router-dom';
 
 
 export default class Ingredients extends Component {
 
     state = {
-        ingredients: ingredientsFromJson,
+        ingredients: this.props.ingredients,
         suggestions: [],
         selectedIngredient: '',
         quantity: 0,
         measure: ' ',
         ingredientsList: [],
+        errorMessage: '',
     }
 
     changeHandler = e => {
@@ -23,7 +23,7 @@ export default class Ingredients extends Component {
 
     searchHandler = (e) => {
         let searchIngredient = e.target.value.toLowerCase()
-        console.log(searchIngredient)
+        // console.log(searchIngredient)
         if (searchIngredient.length > 0) {
             const suggestions = this.state.ingredients.filter((ingredient) => {
                     return ingredient.name.toLowerCase().includes(searchIngredient)
@@ -65,18 +65,40 @@ export default class Ingredients extends Component {
         )
     }
 
-    addHandler = (item) => {
-        console.log(item)
-        this.setState({
-            ingredientsList: [item, ...this.state.ingredientsList],
-    })
-  }
+    submitFormHandler = e => {
+        e.preventDefault()
+        this.service.addIngredients(this.props.container._id, this.state.selectedIngredient, this.state.quantity, this.state.measure)
+        .then(response => {
+            console.log('response', response)
+            this.setState({
+                selectedIngredient: '',
+                quantity: '',
+                measure: '',
+            })
+            this.service.populateIngredients(this.props.container._id, this.state.ingredientsList)
+            .then(response => {
+                console.log(response)
+                this.setState({
+                    ingredientsList: [response, ...this.state.ingredientsList]
+                })
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            this.setState({
+                errorMessage: err.response.data.message
+            })
+        })
+    }
 
     render() {
         console.log(this.state)
         return (
             <div style={{paddingTop: '50px'}}>
-                <form>
+                <form onSubmit={this.submitFormHandler}>
                     <label>Ingredient</label>
                     <input type="text" name="ingredient" onChange={this.searchHandler} value={this.state.selectedIngredient}/>
                     {this.renderSuggestions()}
@@ -88,9 +110,11 @@ export default class Ingredients extends Component {
                         <option value='units'>units</option>
                         <option value='g'>g</option>
                         <option value='kg'>kg</option>
+                        <option value='l'>l</option>
                     </select><br></br>
-                    <button onClick={(item) => this.addHandler(item)}>Add</button>
+                    <button>Add</button>
                 </form>
+                {this.state.errorMessage}
                 <div>
                     <h2>What's in my fridge?</h2>
                     {this.state.ingredientsList.map(item => {
@@ -101,7 +125,7 @@ export default class Ingredients extends Component {
                         )
                     })}
                 </div>
-                <div>
+                {/* <div>
                     <h2>What do I want to cook?</h2>
                     <input type="radio" name="typeOfMeal" value="apetizer"/>
                     <label>Apetizer</label><br></br>
@@ -111,7 +135,7 @@ export default class Ingredients extends Component {
                     <label>Main dish</label><br></br>
                     <input type="radio" name="typeOfMeal" value="dessert"/>
                     <label>Dessert</label><br></br>
-                </div>
+                </div> */}
                 <Link to="/recipes">Find a recipe</Link>
             </div>
         )

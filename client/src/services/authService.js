@@ -43,6 +43,17 @@ class AuthService {
       return this.service.post('/ingredients/create')
       .then((response) => response.data)
     }
+
+    addIngredients = (containerId, name, quantity, measure) => {
+      console.log('hi')
+      return this.service.post(`/ingredients/${containerId}/ingredients`, {name, quantity, measure})
+      .then((response => response.data))
+    }
+
+    populateIngredients = (containerId) => {
+      return this.service.post(`/ingredients/${containerId}/all-ingredients`)
+      .then((response => response.data))
+    }
 }
 
 export default AuthService
