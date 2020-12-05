@@ -59,9 +59,9 @@ service = new AuthService()
   render() {
     console.log(this.state)
 
-    // if(this.state.ingredients && this.state.ingredients.length < 1){
-    //   return <h1>loading</h1>
-    // }
+    if(this.state.ingredients && this.state.ingredients.length < 1){
+      return <h1>loading</h1>
+    }
 
     return (
       <div className='App'>
@@ -76,7 +76,7 @@ service = new AuthService()
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
           }
           {this.state.loggedInUser &&
-          <Route path='/find-recipe' render={() => <Ingredients ingredients={this.state.ingredients} container={this.state.createdContainer}/>} />
+          <Route path='/find-recipe' render={() => <Ingredients ingredients={this.state.ingredients} container={this.state.createdContainer} createContainer={this.createRequest}/>} />
           }
         </Switch>
       </div>

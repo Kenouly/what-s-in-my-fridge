@@ -1,23 +1,47 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom';
+import AuthService from '../../services/authService';
 
 
 export default class Ingredients extends Component {
 
     state = {
+        container: this.props.container,
         ingredients: this.props.ingredients,
         suggestions: [],
-        selectedIngredient: '',
-        quantity: 0,
-        measure: ' ',
+        ingredientItem: {
+            selectedIngredient: '',
+            quantity: 0,
+            measure: '',
+        },
         ingredientsList: [],
         errorMessage: '',
     }
 
+    service = new AuthService()
+
+    componentDidMount() {
+        this.service.createRequest()
+        .then((response) => {
+             console.log(response)
+            if(!!response._id){
+                this.setState({
+                container: response
+            })
+        }
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
     changeHandler = e => {
         const {name, value} = e.target
         this.setState({
-            [name] : value
+            ingredientItem: {
+                ...this.state.ingredientItem,
+                [name] : value
+            }
         })
     }
 
@@ -28,9 +52,13 @@ export default class Ingredients extends Component {
             const suggestions = this.state.ingredients.filter((ingredient) => {
                     return ingredient.name.toLowerCase().includes(searchIngredient)
                 })
+                console.log('suggestions', suggestions)
             this.setState({
                 suggestions: suggestions.slice(0, 10),
-                selectedIngredient: searchIngredient
+                ingredientItem: {
+                    ...this.state.ingredientItem,
+                    selectedIngredient: searchIngredient
+                }
             })
         } else {
             this.setState({
@@ -41,10 +69,19 @@ export default class Ingredients extends Component {
 
     suggestionSelected = (value)  => {
         this.setState({
-            selectedIngredient: value.name,
+            ingredientItem: {
+                ...this.state.ingredientItem,
+                selectedIngredient: value.name
+            },
             suggestions: []
         })
     }
+
+// this.setState(prevState => ({
+//   ingredientsItem: {
+//     ...prevState.Ingredientsitem 
+//   }
+// }));
 
     renderSuggestions = () => {
         if(this.state.suggestions.length === 0) {
@@ -65,25 +102,30 @@ export default class Ingredients extends Component {
         )
     }
 
+
     submitFormHandler = e => {
         e.preventDefault()
-        this.service.addIngredients(this.props.container._id, this.state.selectedIngredient, this.state.quantity, this.state.measure)
+        this.service.addIngredients(this.state.container._id, this.state.ingredientItem.selectedIngredient, this.state.ingredientItem.quantity, this.state.ingredientItem.measure)
         .then(response => {
-            console.log('response', response)
             this.setState({
-                selectedIngredient: '',
-                quantity: '',
-                measure: '',
+                ingredientItem: {
+                    selectedIngredient: '',
+                    quantity: 0,
+                    measure: '',
+                }
             })
-            this.service.populateIngredients(this.props.container._id, this.state.ingredientsList)
+            this.service.populateIngredients(this.state.container._id, this.state.ingredientsList)
             .then(response => {
-                console.log(response)
+                console.log('ingredientsList', response)
                 this.setState({
-                    ingredientsList: [response, ...this.state.ingredientsList]
+                    ingredientsList: [...response.ingredients]
                 })
             })
             .catch(err => {
                 console.log(err)
+                this.setState({
+                    errorMessage: err.response.data.message
+                })
             })
         })
         .catch(err => {
@@ -94,18 +136,22 @@ export default class Ingredients extends Component {
         })
     }
 
+// every time hit refresh page, should create new container
+// window.onload = this.props.createContainer()
+
     render() {
-        console.log(this.state)
+        const {selectedIngredient, quantity, measure } = this.state.ingredientItem
+        console.log(this.state.ingredientsList)
         return (
             <div style={{paddingTop: '50px'}}>
                 <form onSubmit={this.submitFormHandler}>
                     <label>Ingredient</label>
-                    <input type="text" name="ingredient" onChange={this.searchHandler} value={this.state.selectedIngredient}/>
+                    <input type="text" name="ingredient" onChange={this.searchHandler} value={selectedIngredient}/>
                     {this.renderSuggestions()}
                     <label>Quantity</label>
-                    <input type="number" name="quantity" onChange={this.changeHandler} value={this.state.quantity}/>
+                    <input type="number" name="quantity" onChange={this.changeHandler} value={quantity}/>
                     <label>Measures</label>
-                    <select onChange={this.changeHandler} name="measure" value={this.state.measure}>
+                    <select onChange={this.changeHandler} name="measure" value={measure}>
                         <option >Select measure</option>
                         <option value='units'>units</option>
                         <option value='g'>g</option>
@@ -118,8 +164,9 @@ export default class Ingredients extends Component {
                 <div>
                     <h2>What's in my fridge?</h2>
                     {this.state.ingredientsList.map(item => {
+                        console.log(item)
                         return (
-                            <li key={item.name}>
+                            <li key={item._id}>
                                 {item.quantity} {item.measure} x {item.name} <span><button>Remove</button></span>
                             </li>
                         )

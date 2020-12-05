@@ -50,8 +50,8 @@ class AuthService {
       .then((response => response.data))
     }
 
-    populateIngredients = (containerId) => {
-      return this.service.post(`/ingredients/${containerId}/all-ingredients`)
+    populateIngredients = (containerId, ingredients) => {
+      return this.service.post(`/ingredients/${containerId}/all-ingredients`, {ingredients})
       .then((response => response.data))
     }
 }
