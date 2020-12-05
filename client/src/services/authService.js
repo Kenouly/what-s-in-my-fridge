@@ -53,6 +53,12 @@ class AuthService {
       return this.service.post(`/ingredients/${containerId}/all-ingredients`, {ingredients})
       .then((response => response.data))
     }
+
+    deleteIngredient = (ingredientId) => {
+      console.log('hi')
+      return this.service.post(`/ingredients/${ingredientId}/delete-ingredient`)
+      .then((response => response.data))
+    }
 }
 
 export default AuthService

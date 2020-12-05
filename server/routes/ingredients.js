@@ -67,12 +67,12 @@ router.post('/:id/delete-ingredient', (req, res) => {
     Ingredient.findByIdAndRemove(id)
         .then((ingredient) => {
             console.log('deletedIngredient', ingredient)
-            IngredientsContainer.update(
+            return IngredientsContainer.findOneAndUpdate(
                 {ingredients : id},
-                {$pull: {ingredients: id}}
+                {$pull: {ingredients: id}}, {new: true}
                 )
              .then(response => {
-                 console.log(response)
+                 console.log('response', response)
                  res.status(200).json(response)
              })
              .catch(err => {

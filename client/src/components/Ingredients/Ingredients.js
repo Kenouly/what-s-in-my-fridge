@@ -133,6 +133,18 @@ export default class Ingredients extends Component {
         })
     }
 
+    //need to remove ingredient_id
+    deleteIngredient = (ingredientId) => {
+        console.log(ingredientId)
+        this.service.deleteIngredient(ingredientId)
+        .then(response => {
+            console.log('delete', response)
+            this.setState({
+                ingredientsList: response.ingredients
+            })
+        })
+    }
+
     render() {
         const {selectedIngredient, quantity, measure } = this.state.ingredientItem
         console.log(this.state)
@@ -158,10 +170,10 @@ export default class Ingredients extends Component {
                 <div>
                     <h2>What's in my fridge?</h2>
                     {this.state.ingredientsList.map(item => {
-                        console.log(item)
+                        // console.log(item)
                         return (
                             <li key={item._id}>
-                                {item.quantity} {item.measure} x {item.name} <span><button>Remove</button></span>
+                                {item.quantity} {item.measure} x {item.name} <span><button onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
                             </li>
                         )
                     })}
