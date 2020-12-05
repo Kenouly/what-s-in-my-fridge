@@ -18,7 +18,7 @@ export default class Home extends Component {
         return (
             <div className="home">
                     <h1>Welcome {this.props.user.username}</h1>
-                    <Link to='/find-recipe/' onClick={this.props.createContainer}>Find a recipe</Link>
+                    <Link to='/find-recipe/'>Find a recipe</Link>
             </div>
         )
     }

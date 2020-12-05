@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import AuthService from '../../services/authService';
 
@@ -79,7 +79,7 @@ export default class Ingredients extends Component {
 
 // this.setState(prevState => ({
 //   ingredientsItem: {
-//     ...prevState.Ingredientsitem 
+//     ...prevState.ingredientsItem 
 //   }
 // }));
 
@@ -123,9 +123,6 @@ export default class Ingredients extends Component {
             })
             .catch(err => {
                 console.log(err)
-                this.setState({
-                    errorMessage: err.response.data.message
-                })
             })
         })
         .catch(err => {
@@ -136,12 +133,9 @@ export default class Ingredients extends Component {
         })
     }
 
-// every time hit refresh page, should create new container
-// window.onload = this.props.createContainer()
-
     render() {
         const {selectedIngredient, quantity, measure } = this.state.ingredientItem
-        console.log(this.state.ingredientsList)
+        console.log(this.state)
         return (
             <div style={{paddingTop: '50px'}}>
                 <form onSubmit={this.submitFormHandler}>

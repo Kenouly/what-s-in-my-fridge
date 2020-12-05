@@ -24,7 +24,7 @@ export default class NavBar extends Component {
                 <div className="navBar">
                     <ul className="nav">
                         <li><Link to='/' className="navLink">Home</Link></li>
-                        <li><Link to='/find-recipe/' className="navLink" onClick={this.props.createContainer}>Find a recipe</Link></li>
+                        <li><Link to='/find-recipe/' className="navLink">Find a recipe</Link></li>
                         <li><Link to='/my-recipes/' className="navLink">My recipes</Link></li>
                         <li><Link to='/profile' className="navLink">My Profile</Link></li>
                         <li><Link to='/about' className="navLink">About</Link></li>

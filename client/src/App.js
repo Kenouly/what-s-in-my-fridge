@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense, lazy} from 'react';
 import {Switch, Route} from 'react-router-dom'
 import './App.css';
 import ingredientsFromJson from './ingredients.json';
@@ -9,8 +9,8 @@ import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import Logout from './components/Logout/Logout';
 import AuthService from './services/authService';
-import Ingredients from './components/Ingredients/Ingredients';
 
+const Ingredients = lazy(() => import('./components/Ingredients/Ingredients.js'))
 export default class App extends Component {
 
   state = {
@@ -59,16 +59,13 @@ service = new AuthService()
   render() {
     console.log(this.state)
 
-    if(this.state.ingredients && this.state.ingredients.length < 1){
-      return <h1>loading</h1>
-    }
-
     return (
+    <Suspense fallback={<h1>loading</h1>}>
       <div className='App'>
-        <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser} createContainer={this.createRequest}/>
+        <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser}/>
         {/* !! shortcut to force as boolean */}
         <Switch>
-          <Route exact path='/' render={() => <Home isLoggedIn={!!this.state.loggedInUser} user={this.state.loggedInUser} createContainer={this.createRequest}/>} />
+          <Route exact path='/' render={() => <Home isLoggedIn={!!this.state.loggedInUser} user={this.state.loggedInUser}/>} />
           <Route path='/signup' component={Signup} />
           <Route path='/login' render={() => <Login getTheUser={this.getTheUser}/>}/>
           <Route path='/logout' component={Logout}/>
@@ -80,6 +77,7 @@ service = new AuthService()
           }
         </Switch>
       </div>
+  </Suspense>
     )
   }
 

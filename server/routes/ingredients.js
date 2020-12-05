@@ -22,7 +22,6 @@ router.post('/create', (req, res)=> {
 // list of ingredients
 router.post('/:id/ingredients', (req, res) => {
     const {name, quantity, measure} = req.body
-    const {id} = req.params
     // console.log('hello')
     if (!name || !quantity|| !measure) {
         res.status(400).json({message: 'All fields are mandatory. Please provide ingredient, quantity and measure.'})
@@ -56,6 +55,29 @@ router.post('/:id/all-ingredients', (req, res) => {
         .then(response => {
             console.log('response',response)
             res.status(200).json(response)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+
+router.post('/:id/delete-ingredient', (req, res) => {
+    console.log('hi')
+    const { id } = req.params;
+    Ingredient.findByIdAndRemove(id)
+        .then((ingredient) => {
+            console.log('deletedIngredient', ingredient)
+            IngredientsContainer.update(
+                {ingredients : id},
+                {$pull: {ingredients: id}}
+                )
+             .then(response => {
+                 console.log(response)
+                 res.status(200).json(response)
+             })
+             .catch(err => {
+                 console.log(err)
+             })
         })
         .catch(err => {
             console.log(err)
