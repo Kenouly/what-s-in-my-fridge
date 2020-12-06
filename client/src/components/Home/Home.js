@@ -12,13 +12,17 @@ export default class Home extends Component {
             return (
             <div className="home">
                 <h1>What's in my fridge?</h1>
+                <p>Description</p>
+                <buton><Link to='/signup' className="button-text">Signup</Link></buton>
+                <buton><Link to='/login' className="button-text">Login</Link></buton>
             </div>
             )
         }
         return (
             <div className="home">
                     <h1>Welcome {this.props.user.username}</h1>
-                    <Link to='/find-recipe/'>Find a recipe</Link>
+                    <p>Description</p>
+                    <button><Link to='/find-recipe/' className="button-text">Find a recipe</Link></button>
             </div>
         )
     }

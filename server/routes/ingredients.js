@@ -36,7 +36,8 @@ router.post('/:id/ingredients', (req, res) => {
          console.log('ingredients', response)
         IngredientsContainer.findByIdAndUpdate(
         { _id: ObjectId(req.params.id)},
-        {$push: {ingredients: response}}
+        {$push: {ingredients: response}},
+        {new: true}
         )
         .then(res => {
             console.log({res})
@@ -61,28 +62,35 @@ router.post('/:id/all-ingredients', (req, res) => {
         })
 })
 
+// error not push objects
 router.post('/:id/delete-ingredient', (req, res) => {
-    console.log('hi')
     const { id } = req.params;
     Ingredient.findByIdAndRemove(id)
         .then((ingredient) => {
             console.log('deletedIngredient', ingredient)
             return IngredientsContainer.findOneAndUpdate(
                 {ingredients : id},
-                {$pull: {ingredients: id}}, {new: true}
+                {$pull: {ingredients: id} }, 
+                {new: true}
                 )
              .then(response => {
                  console.log('response', response)
-                 res.status(200).json(response)
+                IngredientsContainer.findById(response._id).populate({path: 'ingredients', model: 'Ingredient'}).exec()
+                    .then(response => {
+                        console.log('rnewresponse',response)
+                        res.status(200).json(response)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
              })
-             .catch(err => {
-                 console.log(err)
-             })
+            .catch(err => {
+                console.log(err)
+            })
         })
         .catch(err => {
             console.log(err)
         })
 })
-
 
 module.exports = router

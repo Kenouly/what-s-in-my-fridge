@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
 import AuthService from '../../services/authService';
+import './Ingredients.css'
 
 
 export default class Ingredients extends Component {
@@ -93,7 +94,9 @@ export default class Ingredients extends Component {
                     return (
                         <li
                             onClick={() => this.suggestionSelected(item)}
-                            key={item.name}>
+                            key={item.name}
+                            className="suggestions"
+                        >
                             {item.name}
                         </li>
                     )
@@ -133,12 +136,11 @@ export default class Ingredients extends Component {
         })
     }
 
-    //need to remove ingredient_id
     deleteIngredient = (ingredientId) => {
-        console.log(ingredientId)
+        console.log('ingredient', ingredientId)
         this.service.deleteIngredient(ingredientId)
         .then(response => {
-            console.log('delete', response)
+            console.log('newlist', response)
             this.setState({
                 ingredientsList: response.ingredients
             })
@@ -147,16 +149,21 @@ export default class Ingredients extends Component {
 
     render() {
         const {selectedIngredient, quantity, measure } = this.state.ingredientItem
-        console.log(this.state)
+        console.log(this.state.ingredientsList)
         return (
-            <div style={{paddingTop: '50px'}}>
-                <form onSubmit={this.submitFormHandler}>
+            <div>
+                <form className="ingredients-form" onSubmit={this.submitFormHandler}>
                     <label>Ingredient</label>
+                    <br></br>
                     <input type="text" name="ingredient" onChange={this.searchHandler} value={selectedIngredient}/>
                     {this.renderSuggestions()}
+                    <br></br>
                     <label>Quantity</label>
+                    <br></br>
                     <input type="number" name="quantity" onChange={this.changeHandler} value={quantity}/>
+                    <br></br>
                     <label>Measures</label>
+                    <br></br>
                     <select onChange={this.changeHandler} name="measure" value={measure}>
                         <option >Select measure</option>
                         <option value='units'>units</option>
@@ -164,6 +171,7 @@ export default class Ingredients extends Component {
                         <option value='kg'>kg</option>
                         <option value='l'>l</option>
                     </select><br></br>
+                    <br></br>
                     <button>Add</button>
                 </form>
                 {this.state.errorMessage}

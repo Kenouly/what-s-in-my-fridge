@@ -1,5 +1,8 @@
 .profile {
-    padding: 100px 400px;
+    /* padding: 100px 400px; */
+        margin: auto;
+        margin-top: 100px;
+        width: 60%
 }
 
 .profile img {
@@ -33,9 +36,19 @@
         z-index: 9;
         height: 100px;
         width: 220px;
-        background-color: rgba(83, 86, 90, 1);
+        background-color: rgba(32, 32, 32);
 }
 
 .form-popup form {
     padding: 25px;
+}
+
+button {
+    background-color: rgba(32, 32, 32);
+    border: none;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: 15px;
 }
