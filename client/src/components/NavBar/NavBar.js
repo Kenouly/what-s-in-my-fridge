@@ -42,7 +42,7 @@ export default class NavBar extends Component {
                             <div className="bars"></div>
                         </div>
                     </Link>
-                        <img src={Logo} alt="logo"></img>
+                        <Link to="/" className="logo"><img src={Logo} alt="logo"></img></Link>
                     </div>
                     <nav className={this.state.sidebar ? 'nav-menu active' : 'nav-menu'}>
                         <ul className='nav-menu-items'>
@@ -74,7 +74,7 @@ export default class NavBar extends Component {
                         <div className="bars"></div>
                     </div>
                 </Link>
-                    <img src={Logo} alt="logo"></img>
+                    <Link to="/" className="logo"><img src={Logo} alt="logo"></img></Link>
                 </div>
                 <nav className={this.state.sidebar ? 'nav-menu active' : 'nav-menu'}>
                     <ul className='nav-menu-items'>
