@@ -34,3 +34,23 @@ button {
     font-weight: bolder;
     font-size: 15px;
 }
+
+.recipes-list {
+    display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      background-color: rgb(32,32,32)
+}
+
+.one-recipe {
+    width: 25%;
+}
+
+.recipes-list img {
+    height: 150px;
+}
+
+.recipes-list button {
+    background-color: red;
+}

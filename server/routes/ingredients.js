@@ -3,6 +3,7 @@ const router = express.Router()
 const axios = require('axios')
 const IngredientsContainer = require('../models/IngredientsContainer')
 const Ingredient = require('../models/Ingredient')
+const Recipes = require('../models/Recipes')
 const ObjectId = require('mongodb').ObjectID;
 
 
@@ -19,7 +20,7 @@ router.post('/create', (req, res)=> {
     })
 })
 
-// list of ingredients
+// id = containerId
 router.post('/:id/ingredients', (req, res) => {
     const {name, quantity, measure} = req.body
     // console.log('hello')
@@ -49,6 +50,7 @@ router.post('/:id/ingredients', (req, res) => {
     })
 })
 
+// id = containerId
 router.post('/:id/all-ingredients', (req, res) => {
     // console.log('hello')
     const {id} = req.params
@@ -62,7 +64,7 @@ router.post('/:id/all-ingredients', (req, res) => {
         })
 })
 
-// error not push objects
+// id = ingredientId
 router.post('/:id/delete-ingredient', (req, res) => {
     const { id } = req.params;
     Ingredient.findByIdAndRemove(id)
@@ -77,7 +79,7 @@ router.post('/:id/delete-ingredient', (req, res) => {
                  console.log('response', response)
                 IngredientsContainer.findById(response._id).populate({path: 'ingredients', model: 'Ingredient'}).exec()
                     .then(response => {
-                        console.log('rnewresponse',response)
+                        console.log('newresponse',response)
                         res.status(200).json(response)
                     })
                     .catch(err => {
@@ -87,6 +89,53 @@ router.post('/:id/delete-ingredient', (req, res) => {
             .catch(err => {
                 console.log(err)
             })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+
+// id = containerId
+// how to get the quantitty (amount) and measure (unit): match quantity >= amount and measure = unit
+// not enough results when missedIngredientCount = 0
+router.post('/:id/recipes', (req, res) => {
+    const {id} = req.params
+    IngredientsContainer.findById(id).populate({path: 'ingredients', model: 'Ingredient'}).exec()
+    .then(response => {
+        const name = response.ingredients.map(function(ingredient){ return ingredient.name })
+        console.log('container', name)
+        // res.status(200).json(name)
+        const recipesUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${name}&number=30&apiKey=${process.env.API_KEY}`
+        return axios.get(recipesUrl)
+            .then(responseFromApi=> {
+                const recipes = responseFromApi.data
+                const filteredRecipes = recipes.filter(function (recipe) {
+                return recipe.missedIngredientCount < 3
+                })
+                console.log('filtered', filteredRecipes)
+                if(filteredRecipes.length == 0) {
+                    res.status(400).json({message: 'Sorry we cannot find any recipe. Please add more ingredients.'})
+                } else {
+                    res.status(200).json(filteredRecipes)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+            })
+        .catch(err => {
+            console.log(err)
+        })
+    })
+})
+
+// id = recipeId
+router.post('/:id/recipe-details', (req, res) => {
+    const {id} = req.params
+    const recipeUrl = `https://api.spoonacular.com/recipes/${id}/information?&apiKey=${process.env.API_KEY}`
+    axios.get(recipeUrl)
+        .then(responseFromApi => {
+            console.log(responseFromApi)
+            res.status(200).json(responseFromApi.data)
         })
         .catch(err => {
             console.log(err)

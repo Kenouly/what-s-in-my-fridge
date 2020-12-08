@@ -1,14 +1,14 @@
 import React, { Component } from 'react'
 import {Link} from 'react-router-dom'
-
+import './Logout.css'
 export default class Logout extends Component {
 
     render() {
         return (
-            <div style={{paddingTop: "50px"}}>
+            <div className="logout">
                 <p>User is logged out.</p>
                 <p>Please
-                    <Link to='/login'>login</Link>
+                    <button><Link to='/login'>login</Link></button>
                 </p>
             </div>
         )

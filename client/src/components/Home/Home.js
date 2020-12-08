@@ -13,8 +13,8 @@ export default class Home extends Component {
             <div className="home">
                 <h1>What's in my fridge?</h1>
                 <p>Description</p>
-                <buton><Link to='/signup' className="button-text">Signup</Link></buton>
-                <buton><Link to='/login' className="button-text">Login</Link></buton>
+                <button><Link to='/signup' className="button-text">Signup</Link></button>
+                <button><Link to='/login' className="button-text">Login</Link></button>
             </div>
             )
         }

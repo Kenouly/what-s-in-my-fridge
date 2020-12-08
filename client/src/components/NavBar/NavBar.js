@@ -39,7 +39,6 @@ export default class NavBar extends Component {
                             <div className="bars"></div>
                             <div className="bars"></div>
                             <div className="bars"></div>
-                            <div className="bars"></div>
                         </div>
                     </Link>
                         <Link to="/" className="logo"><img src={Logo} alt="logo"></img></Link>
@@ -56,7 +55,7 @@ export default class NavBar extends Component {
                             <li><Link to='/my-recipes/' className="nav-text">My recipes</Link></li>
                             <li><Link to='/profile' className="nav-text">My Profile</Link></li>
                             {/* <li><Link to='/about' className="nav-text">About</Link></li> */}
-                            {/* <li><a href='mailto: kenouly.lovan@gmail.com' className="nav-text">Contact</a></li> */}
+                            <li><a href='mailto: kenouly.lovan@gmail.com?subject=Information request' className="nav-text">Contact</a></li>
                             <li><Link to='/logout' className="nav-text" onClick={this.logout}>Logout</Link></li>
                         </ul>
                     </nav>
@@ -68,7 +67,6 @@ export default class NavBar extends Component {
                 <div className="navbar">
                 <Link to="#" className="menu-bars" onClick={this.showSideBar}>
                     <div>
-                        <div className="bars"></div>
                         <div className="bars"></div>
                         <div className="bars"></div>
                         <div className="bars"></div>
@@ -87,7 +85,7 @@ export default class NavBar extends Component {
                         {/* <li><Link to='/about' className="nav-text">About</Link></li> */}
                         <li><Link to='/signup' className="nav-text">Signup</Link></li>
                        <li><Link to='/login' className="nav-text">Login</Link></li>
-                       {/* <li><a href='mailto: kenouly.lovan@gmail.com' className="nav-text">Contact</a></li> */}
+                       <li><a href='mailto: kenouly.lovan@gmail.com?subject=Information request' className="nav-text">Contact</a></li>
                     </ul>
                 </nav>
             </>

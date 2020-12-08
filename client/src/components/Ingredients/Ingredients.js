@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import AuthService from '../../services/authService';
 import './Ingredients.css'
 
@@ -16,6 +15,8 @@ export default class Ingredients extends Component {
             measure: '',
         },
         ingredientsList: [],
+        recipesList: [],
+        recipe: [],
         errorMessage: '',
     }
 
@@ -147,6 +148,34 @@ export default class Ingredients extends Component {
         })
     }
 
+    findRecipes = (containerId) => {
+        console.log('containerId', containerId)
+        this.service.findRecipes(containerId)
+        .then(recipes => {
+            console.log(recipes)
+            this.setState({
+                recipesList: recipes
+            })
+        })
+        .catch(err => {
+            console.log(err)
+            this.setState({
+                errorMessage: err.response.data.message
+            })
+        })
+    }
+
+    viewRecipe = (recipeId) => {
+        console.log('recipeId', recipeId)
+        this.service.getRecipeDetails(recipeId)
+        .then(recipe => {
+            console.log(recipe)
+            this.setState({
+                recipe: recipe
+            })
+        })
+    }
+
     render() {
         const {selectedIngredient, quantity, measure } = this.state.ingredientItem
         console.log(this.state.ingredientsList)
@@ -176,7 +205,6 @@ export default class Ingredients extends Component {
                 </form>
                 {this.state.errorMessage}
                 <div>
-                    <h2>What's in my fridge?</h2>
                     {this.state.ingredientsList.map(item => {
                         // console.log(item)
                         return (
@@ -186,18 +214,30 @@ export default class Ingredients extends Component {
                         )
                     })}
                 </div>
-                {/* <div>
-                    <h2>What do I want to cook?</h2>
-                    <input type="radio" name="typeOfMeal" value="apetizer"/>
-                    <label>Apetizer</label><br></br>
-                    <input type="radio" name="typeOfMeal" value="starter"/>
-                    <label>Starter</label><br></br>
-                    <input type="radio" name="typeOfMeal" value="main dish"/>
-                    <label>Main dish</label><br></br>
-                    <input type="radio" name="typeOfMeal" value="dessert"/>
-                    <label>Dessert</label><br></br>
-                </div> */}
-                <Link to="/recipes">Find a recipe</Link>
+                <button onClick={() => this.findRecipes(this.state.container._id)}>Find a recipe</button>
+                <div>
+                    <h1>Recipes suggestions</h1>
+                    <div className="recipes-list">
+                    {this.state.recipesList.map(item => {
+                        return (
+                            <div key={item.id} className="one-recipe">
+                                <h3>{item.title}</h3>
+                                <img src={item.image} alt=""></img>
+                                <div>Missing ingredients: 
+                                    {item.missedIngredients.map(ingredient => {
+                                        return (
+                                            <li key={ingredient.id}>
+                                                {ingredient.name}
+                                            </li>
+                                        )
+                                    })}
+                                </div>
+                                <button onClick={() => this.viewRecipe(item.id)}>View recipe</button>
+                            </div>
+                        )
+                    })}
+                    </div>
+                </div>
             </div>
         )
     }

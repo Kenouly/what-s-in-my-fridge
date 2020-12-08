@@ -55,8 +55,17 @@ class AuthService {
     }
 
     deleteIngredient = (ingredientId) => {
-      console.log('hi')
       return this.service.post(`/ingredients/${ingredientId}/delete-ingredient`)
+      .then((response => response.data))
+    }
+
+    findRecipes = (containerId, recipes) => {
+      return this.service.post(`/ingredients/${containerId}/recipes`, {recipes})
+      .then((response => response.data))
+    }
+
+    getRecipeDetails = (recipeId, details) => {
+      return this.service.post(`/ingredients/${recipeId}/recipe-details`, {details})
       .then((response => response.data))
     }
 }
