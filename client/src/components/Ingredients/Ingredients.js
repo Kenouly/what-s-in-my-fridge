@@ -181,42 +181,46 @@ export default class Ingredients extends Component {
         console.log(this.state.ingredientsList)
         return (
             <div>
-                <form className="ingredients-form" onSubmit={this.submitFormHandler}>
-                    <label>Ingredient</label>
-                    <br></br>
-                    <input type="text" name="ingredient" onChange={this.searchHandler} value={selectedIngredient}/>
-                    {this.renderSuggestions()}
-                    <br></br>
-                    <label>Quantity</label>
-                    <br></br>
-                    <input type="number" name="quantity" onChange={this.changeHandler} value={quantity}/>
-                    <br></br>
-                    <label>Measures</label>
-                    <br></br>
-                    <select onChange={this.changeHandler} name="measure" value={measure}>
-                        <option >Select measure</option>
-                        <option value='units'>units</option>
-                        <option value='g'>g</option>
-                        <option value='kg'>kg</option>
-                        <option value='l'>l</option>
-                    </select><br></br>
-                    <br></br>
-                    <button>Add</button>
-                </form>
+                <div className="row">
+                    <div className="column">
+                        <form className="ingredients-form" onSubmit={this.submitFormHandler}>
+                            <label>Ingredient</label>
+                            <br></br>
+                            <input type="text" name="ingredient" onChange={this.searchHandler} value={selectedIngredient}/>
+                            {this.renderSuggestions()}
+                            <br></br>
+                            <label>Quantity</label>
+                            <br></br>
+                            <input type="number" name="quantity" onChange={this.changeHandler} value={quantity}/>
+                            <br></br>
+                            <label>Measures</label>
+                            <br></br>
+                            <select onChange={this.changeHandler} name="measure" value={measure}>
+                                <option >Select measure</option>
+                                <option value='units'>units</option>
+                                <option value='g'>g</option>
+                                <option value='kg'>kg</option>
+                                <option value='l'>l</option>
+                            </select>
+                            <br></br>
+                            <button>Add</button>
+                        </form>
+                    </div>
+                    <div className="column">
+                        <h3>List of ingredients</h3>
+                        {this.state.ingredientsList.map(item => {
+                            // console.log(item)
+                            return (
+                                <li key={item._id}>
+                                    {item.quantity} {item.measure} x {item.name} <span><button onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
+                                </li>
+                            )
+                        })}
+                        <button onClick={() => this.findRecipes(this.state.container._id)}>Find a recipe</button>
+                    </div>
                 {this.state.errorMessage}
-                <div>
-                    {this.state.ingredientsList.map(item => {
-                        // console.log(item)
-                        return (
-                            <li key={item._id}>
-                                {item.quantity} {item.measure} x {item.name} <span><button onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
-                            </li>
-                        )
-                    })}
                 </div>
-                <button onClick={() => this.findRecipes(this.state.container._id)}>Find a recipe</button>
                 <div>
-                    <h1>Recipes suggestions</h1>
                     <div className="recipes-list">
                     {this.state.recipesList.map(item => {
                         return (
@@ -238,15 +242,8 @@ export default class Ingredients extends Component {
                     })}
                     </div>
                 </div>
-            </div>
+        </div>
         )
     }
 
 }
-
-    // "dishTypes": [
-    //     "lunch",
-    //     "main course",
-    //     "main dish",
-    //     "dinner"
-    // ],
