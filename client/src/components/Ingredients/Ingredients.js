@@ -16,8 +16,10 @@ export default class Ingredients extends Component {
         },
         ingredientsList: [],
         recipesList: [],
-        recipe: [],
+        recipe: this.props.recipe,
+        recipeIsVisible: false,
         errorMessage: '',
+        favRecipes: []
     }
 
     service = new AuthService()
@@ -165,20 +167,27 @@ export default class Ingredients extends Component {
         })
     }
 
-    viewRecipe = (recipeId) => {
-        console.log('recipeId', recipeId)
+    getTheRecipe = (recipeId) => {
         this.service.getRecipeDetails(recipeId)
         .then(recipe => {
             console.log(recipe)
             this.setState({
-                recipe: recipe
+                recipe: recipe,
+                recipeIsVisible: !this.state.recipeIsVisible
             })
+        })
+    }
+
+    addFavourites = (recipeId) => {
+        this.setState({
+            favRecipes: [...this.state.favRecipes, recipeId],
+            recipeIsVisible: !this.state.recipeIsVisible
         })
     }
 
     render() {
         const {selectedIngredient, quantity, measure } = this.state.ingredientItem
-        console.log(this.state.ingredientsList)
+        console.log(this.state.favRecipes)
         return (
             <div>
                 <div className="row">
@@ -209,7 +218,6 @@ export default class Ingredients extends Component {
                     <div className="column">
                         <h3>List of ingredients</h3>
                         {this.state.ingredientsList.map(item => {
-                            // console.log(item)
                             return (
                                 <li key={item._id}>
                                     {item.quantity} {item.measure} x {item.name} <span><button onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
@@ -236,10 +244,26 @@ export default class Ingredients extends Component {
                                         )
                                     })}
                                 </div>
-                                <button onClick={() => this.viewRecipe(item.id)}>View recipe</button>
+                                <button onClick={() => this.getTheRecipe(item.id)}>View recipe</button>
                             </div>
                         )
                     })}
+                    </div>
+                    <div>
+                    {this.state.recipeIsVisible ?
+                        <div className="recipe-details">
+                            <div className="close-popup">
+                                <p onClick={() => this.getTheRecipe(this.state.recipe.id)}>X</p>
+                            </div>
+                            <div>
+                                <h4>Preparation: {this.state.recipe.readyInMinutes} minutes</h4>
+                                <h4>For {this.state.recipe.servings} person(s)</h4>
+                                <p>{this.state.recipe.instructions}</p>
+                                <button onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</button>
+                            </div>
+                            <button onClick={() => this.addFavourites(this.state.recipe.id)}>Add to favourites</button>
+                        </div>
+                    : " "}
                     </div>
                 </div>
         </div>

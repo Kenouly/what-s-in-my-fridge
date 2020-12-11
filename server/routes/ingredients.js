@@ -103,15 +103,39 @@ router.post('/:id/recipes', (req, res) => {
     IngredientsContainer.findById(id).populate({path: 'ingredients', model: 'Ingredient'}).exec()
     .then(response => {
         const name = response.ingredients.map((ingredient) => ingredient.name)
-        console.log('container', name)
+        console.log({response})
+        // console.log('ingredients', name)
+        const quantity = response.ingredients.map((ingredient) => ingredient.quantity)
+        // console.log('quantity', quantity)
         // res.status(200).json(name)
-        const recipesUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${name}&number=30&apiKey=${process.env.API_KEY}`
+        const recipesUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${name}&number=30&ranking=1&apiKey=${process.env.API_KEY}`
         return axios.get(recipesUrl)
             .then(responseFromApi=> {
                     const recipes = responseFromApi.data
                     const filteredRecipes = recipes.filter((recipe) => recipe.missedIngredientCount < 3);
-                    // 5fd26088b00220fe15652898
                     console.log('filtered', filteredRecipes)
+
+                    // const filteredRecipes = recipes.map(recipe=> {
+                    //     const usedIngredientIndex = recipe.usedIngredients.findIndex(usedIngredient => 
+                    //         usedIngredient.name === name[0]
+                    //     );
+                    //     console.log({usedIngredientIndex})
+                        
+                    //     const usedIngredientObject =  recipe.usedIngredients.find(usedIngredient => 
+                    //         usedIngredient.name === name[0]
+                    //     );
+
+                    //     const missingAmount = usedIngredientObject.amount - quantity[0] <= 0 ? 
+                    //         0 : 
+                    //         usedIngredientObject.amount - quantity[0];
+
+                    //     recipe.usedIngredients[usedIngredientIndex] = {
+                    //         ...recipe.usedIngredients[usedIngredientIndex],
+                    //         missingAmount
+                    //     }
+
+                    //     return filteredRecipes
+                    // })
 
                     // our example code:
 
@@ -146,8 +170,6 @@ router.post('/:id/recipes', (req, res) => {
                         
                     //   return myrcp;
                     // });
-
-
 
                 if(filteredRecipes.length == 0) {
                     res.status(400).json({message: 'Sorry we cannot find any recipe. Please add more ingredients.'})
