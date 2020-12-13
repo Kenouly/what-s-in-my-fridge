@@ -96,80 +96,68 @@ router.post('/:id/delete-ingredient', (req, res) => {
 })
 
 // id = containerId
-// how to get the quantitty (amount) and measure (unit): match quantity >= amount and measure = unit
-// not enough results when missedIngredientCount = 0
 router.post('/:id/recipes', (req, res) => {
     const {id} = req.params
     IngredientsContainer.findById(id).populate({path: 'ingredients', model: 'Ingredient'}).exec()
     .then(response => {
         const name = response.ingredients.map((ingredient) => ingredient.name)
-        console.log({response})
         // console.log('ingredients', name)
         const quantity = response.ingredients.map((ingredient) => ingredient.quantity)
         // console.log('quantity', quantity)
-        // res.status(200).json(name)
-        const recipesUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${name}&number=30&ranking=1&apiKey=${process.env.API_KEY}`
+        const recipesUrl = `https://api.spoonacular.com/recipes/findByIngredients?ingredients=${name}&number=500&ranking=1&apiKey=${process.env.API_KEY}`
         return axios.get(recipesUrl)
             .then(responseFromApi=> {
                     const recipes = responseFromApi.data
-                    const filteredRecipes = recipes.filter((recipe) => recipe.missedIngredientCount < 3);
-                    console.log('filtered', filteredRecipes)
+                    console.log({recipes})
 
-                    // const filteredRecipes = recipes.map(recipe=> {
-                    //     const usedIngredientIndex = recipe.usedIngredients.findIndex(usedIngredient => 
-                    //         usedIngredient.name === name[0]
-                    //     );
-                    //     console.log({usedIngredientIndex})
-                        
-                    //     const usedIngredientObject =  recipe.usedIngredients.find(usedIngredient => 
-                    //         usedIngredient.name === name[0]
-                    //     );
+                    //filter recipes with missedIngredientCount < 5 to get enough results
+                    const missedIngredientsFiltered = recipes.filter(recipe => recipe.missedIngredientCount < 5)
 
-                    //     const missingAmount = usedIngredientObject.amount - quantity[0] <= 0 ? 
-                    //         0 : 
-                    //         usedIngredientObject.amount - quantity[0];
-
-                    //     recipe.usedIngredients[usedIngredientIndex] = {
-                    //         ...recipe.usedIngredients[usedIngredientIndex],
-                    //         missingAmount
-                    //     }
-
-                    //     return filteredRecipes
-                    // })
-
-                    // our example code:
-
-                    // this was our condition
-                    // const myingredients = [6, 'apples']; Apple || apple
-                    // const ingredient = myingredients[1].toLowerCase();
-
-                    // Loop through each recepie
-                    // const filteredRecp = myrecp.map(myrcp => {
-                    //   // we are finding the used ingredient (e.g. apple)
-                    //   // sends us the position of the object (e.g 0)
-                    //   const usedIngIndex = myrcp.usedIngredients.findIndex(ui => 
-                    //       ui.name === myingredients[1]
-                    //   );
-                      
-                    // Find the usedIngredient. find() returns an object (of the ingredient)
-                    //   const usedIngObj =  myrcp.usedIngredients.find(ui => 
-                    //       ui.name === myingredients[1]
-                    //   );
+                    //filter recipes with originalName includes in name
+                    const filteredRecipes = missedIngredientsFiltered.filter(recipe => {
+	                    const hasOriginalName = recipe.usedIngredients.filter(usedIngredient => 
+  	                        name.includes(usedIngredient.originalName)
+                        )
+                        // console.log({hasOriginalName})
+                        return hasOriginalName.length > 0
+                    })
+                    // console.log({filteredRecipes})
                     
-                    // If the missing amount is below zero, return 0 else return the correct math
-                    //   const missingAmount = usedIngObj.amount - myingredients[0] <= 0 ? 
-                        // 0 : 
-                        // usedIngObj.amount - myingredients[0];
-                      
-                    // Locating the object recepie, and updating of a specific
-                    // index the value with new values and added "missingAmount"
-                    //   myrcp.usedIngredients[usedIngIndex] = {
-                    //       ...myrcp.usedIngredients[usedIngIndex],
-                    //     missingAmount
-                    //   }
-                        
-                    //   return myrcp;
-                    // });
+                    // loop through the filteredRecipes
+                    const updatedFilteredRecipes = filteredRecipes.map(recipe => {
+                        // find the usedIngredient and send its position
+                        const usedIngredientIndex = recipe.usedIngredients.findIndex((usedIngredient, index) => 
+                            usedIngredient.originalName === name[index]
+                        );
+                        // console.log({usedIngredientIndex})
+
+                        // find the usedIngredient (returns an object)
+                        const usedIngredientObject =  recipe.usedIngredients.find((usedIngredient, index) => 
+                            usedIngredient.originalName === name[index]
+                        );
+                        // console.log({usedIngredientObject})
+
+                        // loop into the quantity and return 0 if the missing amount is below zero, else return the correct math
+                        let missingAmount 
+                        for(let i = 0; i < quantity.length; i++) {
+                            if(!usedIngredientObject) {
+                            return 
+                            } else if(usedIngredientObject.amount - quantity[i] <=0) {
+                                missingAmount =  0
+                                } else {
+                                    missingAmount = usedIngredientObject.amount - quantity[i]
+                                }
+                        }
+                        // console.log({missingAmount})
+
+                        // locate the usedIngredients and update a specific index value with the new value and add "missingAmount"
+                        recipe.usedIngredients[usedIngredientIndex] = {
+                            ...recipe.usedIngredients[usedIngredientIndex],
+                            missingAmount
+                        }
+                        return recipe
+                    })
+                    // console.log({updatedFilteredRecipes})
 
                 if(filteredRecipes.length == 0) {
                     res.status(400).json({message: 'Sorry we cannot find any recipe. Please add more ingredients.'})

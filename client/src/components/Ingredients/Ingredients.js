@@ -19,7 +19,7 @@ export default class Ingredients extends Component {
         recipe: this.props.recipe,
         recipeIsVisible: false,
         errorMessage: '',
-        favRecipes: []
+        favRecipes: this.props.favRecipes
     }
 
     service = new AuthService()
@@ -58,7 +58,7 @@ export default class Ingredients extends Component {
                 })
                 console.log('suggestions', suggestions)
             this.setState({
-                suggestions: suggestions.slice(0, 10),
+                suggestions: suggestions.slice(0, 5),
                 ingredientItem: {
                     ...this.state.ingredientItem,
                     selectedIngredient: searchIngredient
@@ -71,21 +71,25 @@ export default class Ingredients extends Component {
         }
     }
 
-    suggestionSelected = (value)  => {
-        this.setState({
-            ingredientItem: {
-                ...this.state.ingredientItem,
+    // suggestionSelected = (value)  => {
+    //     this.setState(prevState => ({
+    //         ingredientItem: {
+    //             ...this.state.ingredientItem,
+    //             selectedIngredient: value.name
+    //         },
+    //         suggestions: []
+    //     })
+    // }
+
+        suggestionSelected = (value) => {
+        this.setState(prevState => ({
+            ingredientItem : {
+                ...prevState.ingredientItem,
                 selectedIngredient: value.name
             },
-            suggestions: []
-        })
+             suggestions: []
+        }));
     }
-
-// this.setState(prevState => ({
-//   ingredientsItem: {
-//     ...prevState.ingredientsItem 
-//   }
-// }));
 
     renderSuggestions = () => {
         if(this.state.suggestions.length === 0) {
@@ -178,11 +182,18 @@ export default class Ingredients extends Component {
         })
     }
 
+    // addFavourites = (recipeId) => {
+    //     this.setState({
+    //         favRecipes: [...this.state.favRecipes, recipeId],
+    //         recipeIsVisible: !this.state.recipeIsVisible
+    //     })
+    // }
+
     addFavourites = (recipeId) => {
-        this.setState({
-            favRecipes: [...this.state.favRecipes, recipeId],
-            recipeIsVisible: !this.state.recipeIsVisible
-        })
+        this.setState(prevState => ({
+            favRecipes : [...(prevState.favRecipes || []), recipeId],
+             recipeIsVisible: !this.state.recipeIsVisible
+        }));
     }
 
     render() {
@@ -231,15 +242,32 @@ export default class Ingredients extends Component {
                 <div>
                     <div className="recipes-list">
                     {this.state.recipesList.map(item => {
+                        if(!item) {
+                            return (
+                                <div></div>
+                            )
+                        }
                         return (
                             <div key={item.id} className="one-recipe">
-                                <h3>{item.title}</h3>
+                                <div>
+                                    <h4>{item.title}</h4>
+                                </div>
                                 <img src={item.image} alt=""></img>
                                 <div>Missing ingredients: 
-                                    {item.missedIngredients.map(ingredient => {
+                                    {item.usedIngredients.map((usedIngredient, index) => {
+                                        if(usedIngredient.missingAmount === 0) {
+                                            return ""
+                                        } 
                                         return (
-                                            <li key={ingredient.id}>
-                                                {ingredient.name}
+                                            <li key={index}>
+                                                {usedIngredient.missingAmount} {usedIngredient.originalName}
+                                            </li>
+                                        )
+                                    })}
+                                    {item.missedIngredients.map((ingredient, index) => {
+                                        return (
+                                            <li key={index}>
+                                                {ingredient.original}
                                             </li>
                                         )
                                     })}
@@ -255,12 +283,17 @@ export default class Ingredients extends Component {
                             <div className="close-popup">
                                 <p onClick={() => this.getTheRecipe(this.state.recipe.id)}>X</p>
                             </div>
-                            <div>
-                                <h4>Preparation: {this.state.recipe.readyInMinutes} minutes</h4>
-                                <h4>For {this.state.recipe.servings} person(s)</h4>
-                                <p>{this.state.recipe.instructions}</p>
-                                <button onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</button>
+                            <div className="recipe-popup">
+                                <div>
+                                    <img src={this.state.recipe.image} alt={this.state.recipe.name}></img>
+                                </div>
+                                <div className="recipe-info">
+                                    <h4>{this.state.recipe.title}</h4>
+                                    <p>Preparation: {this.state.recipe.readyInMinutes} minutes<span> / For {this.state.recipe.servings} person(s)</span></p>
+                                    <p>{this.state.recipe.instructions}</p>
+                                </div>
                             </div>
+                            <button onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</button>
                             <button onClick={() => this.addFavourites(this.state.recipe.id)}>Add to favourites</button>
                         </div>
                     : " "}

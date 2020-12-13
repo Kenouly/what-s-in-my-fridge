@@ -8,6 +8,7 @@ import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import Logout from './components/Logout/Logout';
+import FavRecipes from './components/FavRecipes/FavRecipes';
 import AuthService from './services/authService';
 
 const Ingredients = lazy(() => import('./components/Ingredients/Ingredients.js'))
@@ -18,6 +19,7 @@ export default class App extends Component {
     createdContainer: null,
     ingredients: ingredientsFromJson,
     recipe: null,
+    favRecipes: null,
   }
 
 service = new AuthService()
@@ -74,8 +76,11 @@ service = new AuthService()
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
           }
           {this.state.loggedInUser &&
-          <Route path='/find-recipe' render={() => <Ingredients ingredients={this.state.ingredients} container={this.state.createdContainer} createContainer={this.createRequest} recipe={this.state.recipe}/>} />
+          <Route path='/find-recipe' render={() => <Ingredients ingredients={this.state.ingredients} container={this.state.createdContainer} createContainer={this.createRequest} recipe={this.state.recipe} favRecipes={this.state.favRecipes}/>} />
           }
+          {this.state.loggedInUser &&
+          <Route path='/my-recipes' render={() => <FavRecipes favRecipes={this.state.favRecipes}/>} />
+        }
         </Switch>
       </div>
   </Suspense>

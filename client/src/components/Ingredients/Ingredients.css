@@ -38,15 +38,15 @@ button {
 .recipes-list {
     display: flex;
     flex-direction: row;
-     flex-wrap: wrap;
-     justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-around;
     background-color: rgb(32,32,32,0.7);
     padding: 10px 50px;
     margin-top: 50px;
 }
 
 .one-recipe {
-    width: 20%;
+    width: 350px;
 }
 
 .recipes-list img {
@@ -59,13 +59,13 @@ button {
 
 .row {
     display: flex;
-          border: solid rgb(255, 255, 255, 0.5) 1px;
-          border-radius: 25px;
-          background-color: rgb(255, 255, 255, 0.5);
-          padding: 30px 100px;
-          margin: auto;
-          margin-top: 100px;
-          width: 50%
+    border: solid rgb(255, 255, 255, 0.5) 1px;
+    border-radius: 25px;
+    background-color: rgb(255, 255, 255, 0.5);
+    padding: 30px 100px;
+    margin: auto;
+    margin-top: 100px;
+    width: 50%
 
 }
 
@@ -77,14 +77,31 @@ button {
     background-color: white;
     color: black;
     position: fixed;
-    top: 400px;
-    left: 400px;
+    top: 40%;
+    left: 25%;
     width: 50%;
-    padding: 20px;
+    padding: 5px 20px 20px 20px;
+    font-size: 0.7em;
 }
 
 .close-popup p{
     margin-left: 90%;
     font-size: 1em;
     font-weight: bolder;
+}
+
+.recipe-popup {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.recipe-popup img {
+    height: 150px;
+}
+
+.recipe-info {
+    padding: 0px 50px;
 }
