@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import AuthService from '../../services/authService';
 import './Ingredients.css'
 
-
 export default class Ingredients extends Component {
 
     state = {
@@ -27,7 +26,7 @@ export default class Ingredients extends Component {
     componentDidMount() {
         this.service.createRequest()
         .then((response) => {
-             console.log(response)
+            //  console.log(response)
             if(!!response._id){
                 this.setState({
                 container: response
@@ -117,6 +116,7 @@ export default class Ingredients extends Component {
         e.preventDefault()
         this.service.addIngredients(this.state.container._id, this.state.ingredientItem.selectedIngredient, this.state.ingredientItem.quantity, this.state.ingredientItem.measure)
         .then(response => {
+            // console.log(response)
             this.setState({
                 ingredientItem: {
                     selectedIngredient: '',
@@ -126,7 +126,7 @@ export default class Ingredients extends Component {
             })
             this.service.populateIngredients(this.state.container._id, this.state.ingredientsList)
             .then(response => {
-                console.log('ingredientsList', response)
+                // console.log('ingredientsList', response)
                 this.setState({
                     ingredientsList: [...response.ingredients]
                 })
@@ -144,10 +144,10 @@ export default class Ingredients extends Component {
     }
 
     deleteIngredient = (ingredientId) => {
-        console.log('ingredient', ingredientId)
+        // console.log('ingredient', ingredientId)
         this.service.deleteIngredient(ingredientId)
         .then(response => {
-            console.log('newlist', response)
+            // console.log('newlist', response)
             this.setState({
                 ingredientsList: response.ingredients
             })
@@ -155,7 +155,7 @@ export default class Ingredients extends Component {
     }
 
     findRecipes = (containerId) => {
-        console.log('containerId', containerId)
+        // console.log('containerId', containerId)
         this.service.findRecipes(containerId)
         .then(recipes => {
             console.log(recipes)
@@ -189,9 +189,9 @@ export default class Ingredients extends Component {
     //     })
     // }
 
-    addFavourites = (recipeId) => {
+    addFavourites = (recipe) => {
         this.setState(prevState => ({
-            favRecipes : [...(prevState.favRecipes || []), recipeId],
+            favRecipes : [...(prevState.favRecipes || []), recipe],
              recipeIsVisible: !this.state.recipeIsVisible
         }));
     }
@@ -228,7 +228,7 @@ export default class Ingredients extends Component {
                     </div>
                     <div className="column">
                         <h3>List of ingredients</h3>
-                        {this.state.ingredientsList.map(item => {
+                        {this.state.ingredientsList.map((item) => {
                             return (
                                 <li key={item._id}>
                                     {item.quantity} {item.measure} x {item.name} <span><button className="remove-btn" onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
@@ -241,11 +241,11 @@ export default class Ingredients extends Component {
                 </div>
                 <div>
                     <div className='recipes-list'>
-                    {this.state.recipesList.map(item => {
+                    {this.state.recipesList.map((item) => {
                         if(!item) {
                             return (
                                 <div>
-                                    
+
                                 </div>
                             )
                         }
@@ -299,7 +299,7 @@ export default class Ingredients extends Component {
                                 </div>
                             </div>
                             <button onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</button>
-                            <button onClick={() => this.addFavourites(this.state.recipe.id)}>Add to favourites</button>
+                            <button onClick={() => this.addFavourites(this.state.recipe)}>Add to favourites</button>
                         </div>
                     : " "}
                     </div>

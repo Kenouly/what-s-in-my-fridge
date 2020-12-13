@@ -1,0 +1,18 @@
+.favourite-recipes {
+    margin: var(--margin);
+    margin-top: var(--margin-top);
+    width: 50%;
+}
+
+.favourites-list {
+    border: var(--form-border);
+    border-radius: var(--form-border-radius);
+    padding: var(--form-padding);
+    margin: var(--margin);
+    margin-top: var(--margin-top);
+    width: 50%
+}
+
+.favourites-list:empty {
+    border: none;
+}
