@@ -85,3 +85,19 @@
   margin-left: auto;
   margin-right: auto;
 }
+
+.contact {
+    position: fixed;
+    bottom: 20px;
+    display: flex;
+}
+
+.contact-icon {
+    color: var(--navbar-text-color);
+    font-size: 1.2em;
+    margin: 0px 5px;
+}
+
+.contact-icon:hover {
+    color: white;
+}
