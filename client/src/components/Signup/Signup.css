@@ -1,0 +1,22 @@
+.signup-form {
+  border: solid rgb(255, 255, 255, 0.5) 1px;
+  border-radius: 25px;
+  background-color: rgb(255, 255, 255, 0.5);
+  padding: 30px 100px;
+  margin: auto;
+  margin-top: 100px;
+  width: 30%
+}
+
+label {
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+input, select {
+    background-color: white;
+    border: none;
+    color: rgba(30, 38, 38);
+    margin: 10px 0px;
+    padding: 5px 50px
+}

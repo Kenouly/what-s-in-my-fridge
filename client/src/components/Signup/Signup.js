@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Link, Redirect} from 'react-router-dom'
 import AuthService from '../../services/authService'
+import './Signup.css'
 
 export default class Signup extends Component {
 
@@ -49,25 +50,33 @@ export default class Signup extends Component {
             return <Redirect to='/login'></Redirect>
         }
         return (
-            <div style={{paddingTop: "50px"}}>
+            <div className="signup-form">
                 <h1>Sign-up</h1>
                 <form onSubmit={this.submitFormHandler}>
                     <label>Username</label>
-                    <input type='text' name='username' value={this.state.username} onChange={this.changeHandler} /><br></br>
+                    <br></br>
+                    <input type='text' name='username' value={this.state.username} onChange={this.changeHandler} />
+                    <br></br>
                     <label>Email</label>
-                    <input type='text' name='email' value={this.state.email} onChange={this.changeHandler}/><br></br>
+                    <br></br>
+                    <input type='text' name='email' value={this.state.email} onChange={this.changeHandler}/>
+                    <br></br>
                     <label>Password</label>
-                    <input type='password' name='password' value={this.state.password} onChange={this.changeHandler}/><br></br>
+                    <br></br>
+                    <input type='password' name='password' value={this.state.password} onChange={this.changeHandler}/>
+                    <br></br>
                     <label>Cooking Level</label>
+                    <br></br>
                     <select onChange={this.changeHandler} name="cookingLevel" value={this.state.cookingLevel}>
                         <option>Select your cooking level</option>
                         <option value='Beginner'>Beginner</option>
                         <option value='Amateur Chef'>Amateur Chef</option>
                         <option value='UltraPro Chef'>UltraPro Chef</option>
-                    </select><br></br>
+                    </select>
+                    <br></br>
                     <button>Signup</button>
                     <p>Already have an account?
-                        <Link to='/login'>Login</Link>
+                        <button><Link to='/login' className="button-text">Login</Link></button>
                     </p>
                 </form>
                 {this.state.errorMessage}

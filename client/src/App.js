@@ -1,19 +1,25 @@
-import React, {Component} from 'react';
+import React, {Component, Suspense, lazy} from 'react';
 import {Switch, Route} from 'react-router-dom'
-// import logo from './logo.svg';
 import './App.css';
+import ingredientsFromJson from './ingredients.json';
 import Home from './components/Home/Home';
 import NavBar from './components/NavBar/NavBar';
 import Signup from './components/Signup/Signup';
 import Login from './components/Login/Login';
 import Profile from './components/Profile/Profile';
 import Logout from './components/Logout/Logout';
+import FavRecipes from './components/FavRecipes/FavRecipes';
 import AuthService from './services/authService';
 
+const Ingredients = lazy(() => import('./components/Ingredients/Ingredients.js'))
 export default class App extends Component {
 
   state = {
     loggedInUser: null,
+    createdContainer: null,
+    ingredients: ingredientsFromJson,
+    recipe: null,
+    favRecipes: null,
   }
 
 service = new AuthService()
@@ -40,10 +46,24 @@ service = new AuthService()
     })
   }
 
+  createRequest = () => {
+        this.service.createRequest()
+        .then(response =>{
+            console.log(response)
+            this.setState({
+              createdContainer: response
+            })
+        })
+        .catch(err => {
+            console.error(err)
+        })
+    }
+
   render() {
     console.log(this.state)
 
     return (
+    <Suspense fallback={<h1>loading</h1>}>
       <div className='App'>
         <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser}/>
         {/* !! shortcut to force as boolean */}
@@ -55,8 +75,15 @@ service = new AuthService()
           {this.state.loggedInUser && 
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
           }
+          {this.state.loggedInUser &&
+          <Route path='/find-recipe' render={() => <Ingredients ingredients={this.state.ingredients} container={this.state.createdContainer} createContainer={this.createRequest} recipe={this.state.recipe} favRecipes={this.state.favRecipes}/>} />
+          }
+          {this.state.loggedInUser &&
+          <Route path='/my-recipes' render={() => <FavRecipes favRecipes={this.state.favRecipes}/>} />
+        }
         </Switch>
       </div>
+  </Suspense>
     )
   }
 

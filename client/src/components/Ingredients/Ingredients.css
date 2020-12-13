@@ -1,0 +1,107 @@
+/* .ingredients-form {
+          border: solid rgb(255, 255, 255, 0.5) 1px;
+          border-radius: 25px;
+          background-color: rgb(255, 255, 255, 0.5);
+          padding: 30px 100px;
+          margin: auto;
+          margin-top: 100px;
+          width: 30%
+} */
+
+.suggestions {
+    list-style: none;
+}
+
+label {
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+input, select {
+    background-color: white;
+    border: none;
+    color: rgba(30,38,38);
+    margin: 10px 0px;
+    padding: 5px
+}
+
+button {
+    background-color: rgba(32, 32, 32);
+    border: none;
+    padding: 5px 20px;
+    color: white;
+    border-radius: 5px;
+    font-weight: bolder;
+    font-size: 15px;
+}
+
+.recipes-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    background-color: rgb(32,32,32,0.7);
+    padding: 10px 50px;
+    margin-top: 50px;
+}
+
+.one-recipe {
+    width: 350px;
+}
+
+.recipes-list img {
+    height: 150px;
+}
+
+.recipes-list button {
+    background-color: darkgray;
+}
+
+.row {
+    display: flex;
+    border: solid rgb(255, 255, 255, 0.5) 1px;
+    border-radius: 25px;
+    background-color: rgb(255, 255, 255, 0.5);
+    padding: 30px 100px;
+    margin: auto;
+    margin-top: 100px;
+    width: 50%
+
+}
+
+.column {
+    flex: 50%;
+}
+
+.recipe-details {
+    background-color: white;
+    color: black;
+    position: fixed;
+    top: 40%;
+    left: 25%;
+    width: 50%;
+    padding: 5px 20px 20px 20px;
+    font-size: 0.7em;
+}
+
+.close-popup p{
+    margin-left: 90%;
+    font-size: 1em;
+    font-weight: bolder;
+}
+
+.recipe-popup {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    padding: 10px;
+}
+
+.recipe-popup img {
+    height: 150px;
+}
+
+.recipe-info {
+    padding: 0px 50px;
+}
