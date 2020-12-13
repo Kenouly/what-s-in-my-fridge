@@ -19,7 +19,7 @@ export default class App extends Component {
     createdContainer: null,
     ingredients: ingredientsFromJson,
     recipe: null,
-    favRecipes: null,
+    favRecipes: [],
   }
 
 service = new AuthService()
@@ -46,19 +46,6 @@ service = new AuthService()
     })
   }
 
-  createRequest = () => {
-        this.service.createRequest()
-        .then(response =>{
-            console.log(response)
-            this.setState({
-              createdContainer: response
-            })
-        })
-        .catch(err => {
-            console.error(err)
-        })
-    }
-
   render() {
     console.log(this.state)
 
@@ -76,7 +63,7 @@ service = new AuthService()
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
           }
           {this.state.loggedInUser &&
-          <Route path='/find-recipe' render={() => <Ingredients ingredients={this.state.ingredients} container={this.state.createdContainer} createContainer={this.createRequest} recipe={this.state.recipe} favRecipes={this.state.favRecipes}/>} />
+          <Route path='/find-recipe' render={() => <Ingredients ingredients={this.state.ingredients} container={this.state.createdContainer} recipe={this.state.recipe} favRecipes={this.state.favRecipes}/>} />
           }
           {this.state.loggedInUser &&
           <Route path='/my-recipes' render={() => <FavRecipes favRecipes={this.state.favRecipes}/>} />
