@@ -74,6 +74,7 @@
     color: var(--navbar-text-color);
     margin-left: 140px;
     margin-top: 40px;
+    font-size: 0.8em;
 }
 
 .close-btn:hover {
@@ -94,7 +95,7 @@
 
 .contact-icon {
     color: var(--navbar-text-color);
-    font-size: 1.2em;
+    font-size: 1.5em;
     margin: 0px 5px;
 }
 

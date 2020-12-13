@@ -69,27 +69,26 @@ export default class Profile extends Component {
                                 onClick={this.showUploadMode}
                         />
                         <p><button onClick={this.showUploadMode}>Change picture</button></p>
-                    </div>
                     {this.state.isInUploadMode ?
                         <div className="form-popup">
                             <form>
                                 <input
                                     type="file"
                                     name="profilePicture"
-                                    className="file-input"
                                     onChange={(e) => this.handleFileUpload(e)}
                                 />
                                 <button>Save</button>
                             </form>
                         </div>
                     : " "}
+                    </div>
                     <div className="profile-info">
                         <h4>Username</h4>
                         <p>{this.state.username}</p>
                         <h4>Email</h4>
                         <p>{this.state.email}</p>
                         <h4>Cooking Level</h4>
-                        <p>{this.state.cookingLevel}<span style={{padding: "0 20px"}}><button onClick={this.showEditMode}>Edit</button></span></p>
+                        <p>{this.state.cookingLevel}<span><button onClick={this.showEditMode}>Edit</button></span></p>
                         {this.state.isInEditMode ?
                             <div>
                                 <select name="cookingLevel" defaultValue={this.state.cookingLevel} onChange={this.changeHandler}>

@@ -1,10 +1,10 @@
 .profile {
     margin: var(--margin);
     margin-top: var(--margin-top);
-    width: 60%
+    width: 50%
 }
 
-.profile img {
+.profile-picture img {
     display: inline-block;
     width: 150px;
     height: 150px;
@@ -25,20 +25,16 @@
     border-radius: var(--form-border-radius);
 }
 
+.profile-picture {
+    flex: 50%;
+}
+
 .profile-info {
-    margin: 0px 50px;
     text-align: left;
+    flex: 50%;
 }
 
-.form-popup {
-    position: fixed;
-    top: 500px;
-    left: 450px;
-    height: 100px;
-    width: 100px;
-     /* background-color: rgba(32, 32, 32); */
-}
-
-.form-popup form {
-    padding-top: 20px;
+.form-popup input {
+    background-color: rgb(255, 255, 255, 0.5);
+    width: 175px;
 }
