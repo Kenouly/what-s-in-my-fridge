@@ -19,9 +19,13 @@ input, select {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
-    background-color: rgb(32,32,32,0.7);
+    background-color: rgb(32, 32, 32, 0.7);
     padding: 30px 50px;
     margin-top: 50px;
+}
+
+.recipes-list:empty {
+    display: none;
 }
 
 .one-recipe {

@@ -240,11 +240,13 @@ export default class Ingredients extends Component {
                 {this.state.errorMessage}
                 </div>
                 <div>
-                    <div className="recipes-list">
+                    <div className='recipes-list'>
                     {this.state.recipesList.map(item => {
                         if(!item) {
                             return (
-                                <div></div>
+                                <div>
+                                    
+                                </div>
                             )
                         }
                         return (
