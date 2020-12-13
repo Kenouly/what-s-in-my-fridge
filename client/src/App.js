@@ -50,7 +50,7 @@ service = new AuthService()
     console.log(this.state)
 
     return (
-    <Suspense fallback={<h1>loading</h1>}>
+    <Suspense fallback={<div className="loading-page">The page is loading.</div>}>
       <div className='App'>
         <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser}/>
         {/* !! shortcut to force as boolean */}

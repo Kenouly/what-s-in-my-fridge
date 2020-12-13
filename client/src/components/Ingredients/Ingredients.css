@@ -100,3 +100,10 @@ input, select {
     text-align: left;
     padding: 0px 50px;
 }
+
+.icon {
+    font-size: 2em;
+    margin: 0px 10px;
+    color: black;
+}
+

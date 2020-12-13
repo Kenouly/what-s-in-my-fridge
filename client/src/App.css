@@ -46,4 +46,8 @@ button {
   color: white;
 }
 
-
+.loading-page {
+  margin: var(--margin);
+  margin-top: var(--margin-top);
+  width: 50%;
+}

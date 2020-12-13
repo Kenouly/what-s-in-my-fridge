@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import AuthService from '../../services/authService';
 import './Ingredients.css'
+import { FaHeart } from 'react-icons/fa';
+import { IoMdMail } from 'react-icons/io';
 
 export default class Ingredients extends Component {
 
@@ -299,7 +301,8 @@ export default class Ingredients extends Component {
                                 </div>
                             </div>
                             <button onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</button>
-                            <button onClick={() => this.addFavourites(this.state.recipe)}>Add to favourites</button>
+                            <FaHeart className="icon" onClick={() => this.addFavourites(this.state.recipe)}></FaHeart>
+                            <a href={`mailto:?subject=Check out this awesome recipe!&body=${this.state.recipe.sourceUrl}`}><IoMdMail className="icon"></IoMdMail></a>
                         </div>
                     : " "}
                     </div>
