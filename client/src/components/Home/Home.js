@@ -11,8 +11,8 @@ export default class Home extends Component {
         if(!this.props.isLoggedIn) {
             return (
             <div className="home">
-                <h1>What's in my fridge?</h1>
-                <p>Description</p>
+                <h1>No idea what to make for lunch/dinner?</h1>
+                <p>Check what is in your fridge and we can help you.</p>
                 <button><Link to='/signup' className="button-text">Signup</Link></button>
                 <button><Link to='/login' className="button-text">Login</Link></button>
             </div>
@@ -21,7 +21,7 @@ export default class Home extends Component {
         return (
             <div className="home">
                     <h1>Welcome {this.props.user.username}</h1>
-                    <p>Description</p>
+                    <h3>No idea what to make for lunch/dinner?</h3>
                     <button><Link to='/find-recipe/' className="button-text">Find a recipe</Link></button>
             </div>
         )

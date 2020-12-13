@@ -1,15 +1,12 @@
 .logout {
-    margin: auto;
-    margin-top: 100px;
+    margin: var(--margin);
+    margin-top: var(--margin-top);
     width: 60%
 }
 
-button {
-    background-color: rgba(32, 32, 32);
-    border: none;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 5px;
-    font-weight: bolder;
-    font-size: 15px;
+.button-text {
+    color: var(--secondary-button-text-color);
+    text-decoration: var(--secondary-button-text-decoration);
+    font-size: var(--secondary-button-text-font-size);
+    font-weight: var(--secondary-button-text-font-weight);
 }

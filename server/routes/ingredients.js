@@ -157,7 +157,7 @@ router.post('/:id/recipes', (req, res) => {
                         }
                         return recipe
                     })
-                    // console.log({updatedFilteredRecipes})
+                    console.log({updatedFilteredRecipes})
 
                 if(filteredRecipes.length == 0) {
                     res.status(400).json({message: 'Sorry we cannot find any recipe. Please add more ingredients.'})

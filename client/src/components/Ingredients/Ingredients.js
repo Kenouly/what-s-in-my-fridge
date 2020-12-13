@@ -31,13 +31,13 @@ export default class Ingredients extends Component {
             if(!!response._id){
                 this.setState({
                 container: response
-            })
-        }
-    })
-    .catch((err) => {
-      console.log(err)
-    })
-  }
+                })
+            }
+         })
+        .catch((err) => {
+            console.log(err)
+        })
+    }
 
     changeHandler = e => {
         const {name, value} = e.target
@@ -72,7 +72,7 @@ export default class Ingredients extends Component {
     }
 
     // suggestionSelected = (value)  => {
-    //     this.setState(prevState => ({
+    //     this.setState({
     //         ingredientItem: {
     //             ...this.state.ingredientItem,
     //             selectedIngredient: value.name
@@ -81,7 +81,7 @@ export default class Ingredients extends Component {
     //     })
     // }
 
-        suggestionSelected = (value) => {
+    suggestionSelected = (value) => {
         this.setState(prevState => ({
             ingredientItem : {
                 ...prevState.ingredientItem,
@@ -231,11 +231,11 @@ export default class Ingredients extends Component {
                         {this.state.ingredientsList.map(item => {
                             return (
                                 <li key={item._id}>
-                                    {item.quantity} {item.measure} x {item.name} <span><button onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
+                                    {item.quantity} {item.measure} x {item.name} <span><button className="remove-btn" onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
                                 </li>
                             )
                         })}
-                        <button onClick={() => this.findRecipes(this.state.container._id)}>Find a recipe</button>
+                        <button style={{marginTop: '20px'}}onClick={() => this.findRecipes(this.state.container._id)}>Find a recipe</button>
                     </div>
                 {this.state.errorMessage}
                 </div>
@@ -253,8 +253,10 @@ export default class Ingredients extends Component {
                                     <h4>{item.title}</h4>
                                 </div>
                                 <img src={item.image} alt=""></img>
-                                <div>Missing ingredients: 
-                                    {item.usedIngredients.map((usedIngredient, index) => {
+                                <div>
+                                    <h4>Missing ingredients:</h4>
+                                    <div className="missing-ingredients">
+                                        {item.usedIngredients.map((usedIngredient, index) => {
                                         if(usedIngredient.missingAmount === 0) {
                                             return ""
                                         } 
@@ -271,6 +273,7 @@ export default class Ingredients extends Component {
                                             </li>
                                         )
                                     })}
+                                    </div>
                                 </div>
                                 <button onClick={() => this.getTheRecipe(item.id)}>View recipe</button>
                             </div>

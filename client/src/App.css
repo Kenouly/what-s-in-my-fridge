@@ -1,5 +1,38 @@
 @import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
 
+:root {
+  --navbar-bg-color: rgba(32, 32, 32);
+  --navbar-text-color: lightgray;
+  --form-border: solid rgb(255, 255, 255, 0.5) 1px;
+  --form-border-radius: 25px;
+  --form-padding: 30px 100px;
+  --margin: auto;
+  --margin-top: 100px;
+  --form-width: 30%;
+  --input-bg-color: white;
+  --input-border: none;
+  --input-margin: 10px 0px;
+  --input-padding: 5px 50px;
+  --label-font-weight: bolder;
+  --label-font-size: 18px;
+  --secondary-button-bg-color: darkgray;
+  --secondary-button-text-color: white;
+  --secondary-button-text-decoration: none;
+  --secondary-button-text-font-size: 15px;
+  --secondary-button-text-font-weight: bolder;
+}
+
+button {
+  background-color: rgba(32, 32, 32);
+  border: none;
+  padding: 5px 20px;
+  color: white;
+  border-radius: 5px;
+  font-weight: bolder;
+  font-size: 15px;
+  margin: 0px 5px;
+}
+
 .App {
   font-family: 'ABeeZee', sans-serif;
   box-sizing: border-box;
@@ -10,5 +43,7 @@
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  color: white;
 }
+
 

@@ -1,27 +1,16 @@
 .login-form {
-      border: solid rgb(255, 255, 255, 0.5) 1px;
-      border-radius: 25px;
-      background-color: rgb(255, 255, 255, 0.5);
-      padding: 30px 100px;
-      margin: auto;
-      margin-top: 100px;
-      width: 30%
-}
-
-input {
-    background-color: white;
-    border: none;
-    color: rgba(30, 38, 38);
-    margin: 10px 0px;
-    padding: 5px 50px;
+  border: var(--form-border);
+  border-radius: var(--form-border-radius);
+  /* background-color: rgb(255, 255, 255, 0.5); */
+  padding: var(--form-padding);
+  margin: var(--margin);
+  margin-top: var(--margin-top);
+  width: var(--form-width)
 } 
 
-button {
-    background-color: rgba(32, 32, 32);
-    border: none;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 5px;
-    font-weight: bolder;
-    font-size: 15px;
+input {
+    background-color: var(--input-bg-color);
+    border: var(--input-border);
+    margin: var(--input-margin);
+    padding: var(--input-padding)
 }

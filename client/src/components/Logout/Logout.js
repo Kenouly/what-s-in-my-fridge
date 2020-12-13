@@ -8,7 +8,7 @@ export default class Logout extends Component {
             <div className="logout">
                 <p>User is logged out.</p>
                 <p>Please
-                    <button><Link to='/login'>login</Link></button>
+                    <button><Link to='/login'  className="button-text">login</Link></button>
                 </p>
             </div>
         )

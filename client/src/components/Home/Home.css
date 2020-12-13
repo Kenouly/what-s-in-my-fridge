@@ -1,25 +1,13 @@
-body {
-    color: white;
-}
-
 .home {
-    margin: auto;
-    margin-top: 100px;
-    width: 30%
-}
-
-button {
-    background-color: rgba(32, 32, 32);
-    border: none;
-    padding: 5px 20px;
-    border-radius: 5px;
-    margin: 0px 5px;
+    margin: var(--margin);
+    margin-top: var(--margin-top);
+    width: 50%;
 }
 
 .button-text {
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: bolder;
+    color: var(--secondary-button-text-color);
+    text-decoration: var(--secondary-button-text-decoration);
+    font-size: var(--secondary-button-text-font-size);
+    font-weight: var(--secondary-button-text-font-weight);
 }
 

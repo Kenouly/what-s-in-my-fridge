@@ -1,8 +1,3 @@
-:root {
-    --navbar-bg-color: rgba(32, 32, 32);
-    --navbar-text-color: lightgray
-}
-
 .navbar {
     background-color: var(--navbar-bg-color);
     height: 70px;

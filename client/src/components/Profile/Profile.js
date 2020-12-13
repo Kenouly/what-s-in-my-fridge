@@ -76,6 +76,7 @@ export default class Profile extends Component {
                                 <input
                                     type="file"
                                     name="profilePicture"
+                                    className="file-input"
                                     onChange={(e) => this.handleFileUpload(e)}
                                 />
                                 <button>Save</button>

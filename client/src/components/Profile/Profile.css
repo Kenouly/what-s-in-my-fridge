@@ -1,27 +1,28 @@
 .profile {
-    /* padding: 100px 400px; */
-        margin: auto;
-        margin-top: 100px;
-        width: 60%
+    margin: var(--margin);
+    margin-top: var(--margin-top);
+    width: 60%
 }
 
 .profile img {
-      display: inline-block;
-      width: 150px;
-      height: 150px;
-      border-radius: 50%;
-      background-color: white;
+    display: inline-block;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background-color: white;
 }
 
 .profile-details {
-        display: flex;
-        justify-content: space-evenly;
-        margin-top: 50px;
-        margin-left: 50px;
-        padding: 50px;
-        background-color: rgb(255, 255, 255, 0.5);
-        border: solid rgb(255, 255, 255, 0.5) 1px;
-        border-radius: 25px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    margin-top: 50px;
+    margin-left: 50px;
+    padding: 50px;
+    /* background-color: rgb(255, 255, 255, 0.5); */
+    border: var(--form-border);
+    border-radius: var(--form-border-radius);
 }
 
 .profile-info {
@@ -30,25 +31,14 @@
 }
 
 .form-popup {
-        position: fixed;
-        top: 500px;
-        left: 450px;
-        z-index: 9;
-        height: 100px;
-        width: 220px;
-        background-color: rgba(32, 32, 32);
+    position: fixed;
+    top: 500px;
+    left: 450px;
+    height: 100px;
+    width: 100px;
+     /* background-color: rgba(32, 32, 32); */
 }
 
 .form-popup form {
-    padding: 25px;
-}
-
-button {
-    background-color: rgba(32, 32, 32);
-    border: none;
-    padding: 5px 20px;
-    color: white;
-    border-radius: 5px;
-    font-weight: bolder;
-    font-size: 15px;
+    padding-top: 20px;
 }
