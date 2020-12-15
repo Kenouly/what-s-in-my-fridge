@@ -54,7 +54,7 @@ service = new AuthService()
       <div className='App'>
         <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser}/>
         {/* !! shortcut to force as boolean */}
-        <h1>env {process.env.REACT_APP_BACKEND_URL}</h1>
+        <h1>env {process.env.REACT_APP_BACKENDURL}</h1>
         <Switch>
           <Route exact path='/' render={() => <Home isLoggedIn={!!this.state.loggedInUser} user={this.state.loggedInUser}/>} />
           <Route path='/signup' component={Signup} />
