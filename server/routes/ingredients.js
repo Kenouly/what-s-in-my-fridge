@@ -4,6 +4,8 @@ const axios = require('axios')
 const IngredientsContainer = require('../models/IngredientsContainer')
 const Ingredient = require('../models/Ingredient')
 const ObjectId = require('mongodb').ObjectID;
+const Recipe = require('../models/Recipe');
+const User = require('../models/User');
 
 
 //when click on 'Find a recipe' --> create containerId (session id)
@@ -185,6 +187,32 @@ router.post('/:id/recipe-details', (req, res) => {
         .catch(err => {
             console.log(err)
         })
+})
+
+router.post('/my-recipes', (req, res) => {
+    // const {recipeId, userId} = req.body
+    // console.log('reqbody', req.body)
+    // Recipes.findById(userId).populate({path: 'recipeId', model: 'Recipes'}).exec()
+    const {recipeId} = req.body
+    Recipe.create({
+        recipeId: recipeId,
+        user: req.session.user._id
+    })
+    .then(response => {
+        console.log(response)
+        User.findById(req.session.user._id).populate({path: 'favRecipes', model: 'Recipe'}).exec()
+        // console.log('user', req.session.user._id)
+            .then(response => {
+                console.log('new response', response.favRecipes)
+                res.status(200).json(response.favRecipes)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    })
+    .catch(err => {
+        console.log(err)
+    })
 })
 
 module.exports = router

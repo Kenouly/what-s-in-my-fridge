@@ -63,7 +63,15 @@ service = new AuthService()
           <Route path='/profile' render={() => <Profile user={this.state.loggedInUser}/>} />
           }
           {this.state.loggedInUser &&
-          <Route path='/find-recipe' render={() => <Ingredients ingredients={this.state.ingredients} container={this.state.createdContainer} recipe={this.state.recipe} favRecipes={this.state.favRecipes}/>} />
+          <Route path='/find-recipe' render={() => 
+              <Ingredients
+                  ingredients={this.state.ingredients}
+                  container={this.state.createdContainer}
+                  recipe={this.state.recipe}
+                  favRecipes={this.state.favRecipes}
+                  user={this.state.loggedInUser}
+                />
+            } />
           }
           {this.state.loggedInUser &&
           <Route path='/my-recipes' render={() => <FavRecipes favRecipes={this.state.favRecipes}/>} />

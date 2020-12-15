@@ -69,7 +69,7 @@ export default class Profile extends Component {
                                 onClick={this.showUploadMode}
                         />
                         <p><button onClick={this.showUploadMode}>Change picture</button></p>
-                    {this.state.isInUploadMode ?
+                    {this.state.isInUploadMode &&
                         <div className="form-popup">
                             <form>
                                 <input
@@ -80,7 +80,7 @@ export default class Profile extends Component {
                                 <button>Save</button>
                             </form>
                         </div>
-                    : " "}
+                    }
                     </div>
                     <div className="profile-info">
                         <h4>Username</h4>
@@ -89,7 +89,7 @@ export default class Profile extends Component {
                         <p>{this.state.email}</p>
                         <h4>Cooking Level</h4>
                         <p>{this.state.cookingLevel}<span><button onClick={this.showEditMode}>Edit</button></span></p>
-                        {this.state.isInEditMode ?
+                        {this.state.isInEditMode &&
                             <div>
                                 <select name="cookingLevel" defaultValue={this.state.cookingLevel} onChange={this.changeHandler}>
                                     <option value='Beginner'>Beginner</option>
@@ -99,7 +99,7 @@ export default class Profile extends Component {
                                 <button onClick={this.showEditMode}>X</button>
                                 <button onClick={this.submitHandler}>OK</button>
                             </div>
-                        : " "}
+                        }
                         </div>
                         </div>
                 </div>

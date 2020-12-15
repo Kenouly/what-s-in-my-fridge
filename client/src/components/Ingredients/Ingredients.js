@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import AuthService from '../../services/authService';
+import IngredientsService from '../../services/ingredientsService';
 import './Ingredients.css'
 import { FaHeart } from 'react-icons/fa';
 import { IoMdMail } from 'react-icons/io';
@@ -23,7 +23,7 @@ export default class Ingredients extends Component {
         favRecipes: this.props.favRecipes
     }
 
-    service = new AuthService()
+    service = new IngredientsService()
 
     componentDidMount() {
         this.service.createRequest()
@@ -191,11 +191,16 @@ export default class Ingredients extends Component {
     //     })
     // }
 
-    addFavourites = (recipe) => {
+    addFavourites = (recipeId) => {
         this.setState(prevState => ({
-            favRecipes : [...(prevState.favRecipes || []), recipe],
-             recipeIsVisible: !this.state.recipeIsVisible
-        }));
+            favRecipes : [...prevState.favRecipes, recipeId],
+            recipeIsVisible: !this.state.recipeIsVisible
+        }), () => 
+        this.service.saveFavRecipes(recipeId, this.props.user_id)
+        .then(recipeId=> {
+            console.log(recipeId)
+        })
+        )
     }
 
     render() {
@@ -285,7 +290,7 @@ export default class Ingredients extends Component {
                     })}
                     </div>
                     <div>
-                    {this.state.recipeIsVisible ?
+                    {this.state.recipeIsVisible &&
                         <div className="recipe-details">
                             <div className="close-popup">
                                 <p onClick={() => this.getTheRecipe(this.state.recipe.id)}>X</p>
@@ -301,10 +306,10 @@ export default class Ingredients extends Component {
                                 </div>
                             </div>
                             <button onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</button>
-                            <FaHeart className="icon" onClick={() => this.addFavourites(this.state.recipe)}></FaHeart>
+                            <FaHeart className="icon" onClick={() => this.addFavourites(this.state.recipe.id)}></FaHeart>
                             <a href={`mailto:?subject=Check out this awesome recipe!&body=${this.state.recipe.sourceUrl}`}><IoMdMail className="icon"></IoMdMail></a>
                         </div>
-                    : " "}
+                    }
                     </div>
                 </div>
         </div>
