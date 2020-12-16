@@ -222,4 +222,16 @@ router.post('/my-recipes', (req, res) => {
     })
 })
 
+router.post('/:id/my-recipes', (req, res) => {
+    const {id} = req.params
+    User.findById(id).populate({path: 'favRecipes', model: 'Recipe'}).exec()
+        .then(response => {
+            console.log('response',response)
+            res.status(200).json(response)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+
 module.exports = router

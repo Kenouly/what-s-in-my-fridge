@@ -1,11 +1,27 @@
 import React, { Component } from 'react';
 import {Link} from  'react-router-dom';
+import IngredientsService from '../../services/ingredientsService';
 import './FavRecipes.css';
 
 export default class FavRecipes extends Component {
 
     state = {
-        user: this.props.user
+        favRecipes: this.props.user.favRecipes
+    }
+
+    service = new IngredientsService()
+
+    componentDidMount() {
+        this.service.populateFavRecipes(this.props.user._id)
+        .then(updatedUser => {
+            console.log({updatedUser})
+            this.setState({
+                favRecipes: updatedUser.favRecipes
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     // removeFavRecipe = (e) => {
@@ -15,29 +31,35 @@ export default class FavRecipes extends Component {
     // }
 
     render() {
-        console.log(this.state)
+        console.log(this.state.favRecipes)
         return (
             <div className="favourite-recipes">
                 <h1>Your favourite recipes</h1>
-                {/* <div className="favourites-list">
-                {this.state.favRecipes.map((recipe) => {
-                    if(this.state.favRecipes.length === 0) {
-                        return (
-                            <div>
-                                <p>You don't have favourite recipes yet. Please <span><button><Link to="/find-recipe">find a recipe</Link></button></span></p> 
-                            </div>
-                        )
-                    }
-                    return (
-                        <div key={recipe.id}>
-                            <img src={recipe.image} alt={recipe.title}></img>
-                            <h2>{recipe.title}</h2>
-                            <button onClick={() => window.open(recipe.sourceUrl, "_blank")}>Read more</button>
-                            <button on Click={() => this.removeFavRecipes(recipe)}>Remove</button>
-                        </div>
-                    )
-                })}
-                </div> */}
+                    <div className="favourites-list">
+                        {this.state.favRecipes.map((recipe, index) => {
+                            if(this.state.favRecipes.length === 0) {
+                                return (
+                                    <div>
+                                        <p>You don't have favourite recipes yet. Please <span><button><Link to="/find-recipe">find a recipe</Link></button></span></p>
+                                    </div>
+                                )
+                            }
+                            return (
+                                <div key={index}>
+                                    {recipe.recipe.map((details , index) => {
+                                        return (
+                                            <div className="one-favourite" key={index}>
+                                                <img src={details.image} alt={details.title}></img>
+                                                <h4>{details.title}</h4>
+                                                <button onClick={() => window.open(details.sourceUrl, "_blank")}>Read more</button>
+                                                <button>Remove</button>
+                                            </div>
+                                        )
+                                    } )}
+                                </div>
+                            )
+                        })}
+                    </div>
             </div>
         )
     }

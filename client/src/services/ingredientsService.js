@@ -16,17 +16,17 @@ class IngredientsService {
 
     addIngredients = (containerId, name, quantity, measure) => {
       return this.service.post(`/ingredients/${containerId}/ingredients`, {name, quantity, measure})
-      .then((response => response.data))
+      .then(response => response.data)
     }
 
     populateIngredients = (containerId, ingredients) => {
       return this.service.post(`/ingredients/${containerId}/all-ingredients`, {ingredients})
-      .then((response => response.data))
+      .then(response => response.data)
     }
 
     deleteIngredient = (ingredientId) => {
       return this.service.post(`/ingredients/${ingredientId}/delete-ingredient`)
-      .then((response => response.data))
+      .then(response => response.data)
     }
 
     findRecipes = (containerId, recipes) => {
@@ -44,6 +44,10 @@ class IngredientsService {
         .then(response => response.data)
     }
 
+    populateFavRecipes = (userId, recipes) => {
+        return this.service.post(`/ingredients/${userId}/my-recipes`, {recipes})
+        .then(response => response.data)
+    }
 }
 
 export default IngredientsService
