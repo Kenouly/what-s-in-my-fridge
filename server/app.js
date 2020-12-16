@@ -48,7 +48,7 @@ app.use(session({
 // )
 
 app.use(cors({
-  origin: [process.env.NETLIFY_URL],
+  origin: process.env.NETLIFY_URL,
   credentials: true,
 })
 )
