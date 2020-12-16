@@ -26,7 +26,7 @@ service = new AuthService()
   componentDidMount() {
     this.service.loggedin()
     .then((response) => {
-      console.log(response)
+      // console.log(response)
       if(!!response._id){
         this.setState({
           loggedInUser: response
