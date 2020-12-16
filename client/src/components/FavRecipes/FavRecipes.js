@@ -24,6 +24,19 @@ export default class FavRecipes extends Component {
         })
     }
 
+    removeFavRecipe = (recipeId) => {
+        this.service.removeFavRecipe(recipeId)
+        .then(reupdatedUser => {
+            console.log({reupdatedUser})
+            this.setState({
+                favRecipes: reupdatedUser.favRecipes
+            })
+        })
+        .catch(err => {
+            console.log(err)
+        })
+    }
+
     render() {
         console.log(this.state)
         return (
@@ -40,7 +53,7 @@ export default class FavRecipes extends Component {
                                                 <img src={recipe.image} alt={recipe.title}></img>
                                                 <h4>{recipe.title}</h4>
                                                 <button onClick={() => window.open(recipe.sourceUrl, "_blank")}>Read more</button>
-                                                <button>Remove</button>
+                                                <button onClick={() => this.removeFavRecipe(recipes._id)}>Remove</button>
                                             </div>
                                         )
                                     } )}

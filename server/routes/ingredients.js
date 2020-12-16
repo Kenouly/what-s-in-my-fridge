@@ -189,6 +189,7 @@ router.post('/:id/recipe-details', (req, res) => {
         })
 })
 
+// create recipe and update in User
 router.post('/my-recipes', (req, res) => {
     const {recipe} = req.body
     Recipe.create({
@@ -222,12 +223,43 @@ router.post('/my-recipes', (req, res) => {
     })
 })
 
+// populate recipes in User
 router.post('/:id/my-recipes', (req, res) => {
     const {id} = req.params
     User.findById(id).populate({path: 'favRecipes', model: 'Recipe'}).exec()
         .then(response => {
             console.log('response',response)
             res.status(200).json(response)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+})
+
+router.post('/my-recipes/:id/remove', (req, res) => {
+    const { id } = req.params;
+    Recipe.findByIdAndRemove(id)
+        .then((recipe) => {
+            console.log('deletedRecipe', recipe)
+            return User.findOneAndUpdate(
+                {favRecipes : id},
+                {$pull: {favRecipes: id} }, 
+                {new: true}
+                )
+             .then(response => {
+                 console.log('response', response)
+                User.findById(response._id).populate({path: 'favRecipes', model: 'Recipe'}).exec()
+                    .then(response => {
+                        console.log('newresponse',response)
+                        res.status(200).json(response)
+                    })
+                    .catch(err => {
+                        console.log(err)
+                    })
+             })
+            .catch(err => {
+                console.log(err)
+            })
         })
         .catch(err => {
             console.log(err)

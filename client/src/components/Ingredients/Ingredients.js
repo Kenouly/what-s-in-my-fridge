@@ -154,6 +154,9 @@ export default class Ingredients extends Component {
                 ingredientsList: response.ingredients
             })
         })
+        .catch(err => {
+            console.log(err)
+        })
     }
 
     findRecipes = (containerId) => {
