@@ -88,7 +88,7 @@ router.get('/logout', (req, res) => {
 
 
 router.post('/:id/edit', (req, res)  => {
-    const user = req.session.user
+    // const user = req.session.user
     const {cookingLevel} = req.body;
     User.findByIdAndUpdate(
         { _id: ObjectId(req.params.id)},
