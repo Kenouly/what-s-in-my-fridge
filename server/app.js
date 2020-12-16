@@ -8,6 +8,7 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
+const helmet = require('helmet')
 
 const session = require('express-session')
 const Mongostore = require('connect-mongo')(session)
@@ -52,6 +53,8 @@ app.use(cors({
   credentials: true,
 })
 )
+
+app.use(helmet())
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
