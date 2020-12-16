@@ -55,7 +55,7 @@ export default class Profile extends Component {
   }
 
     render() {
-        console.log(this.props.user.cookingLevel)
+        console.log(this.state.cookingLevel)
         console.log(this.props.user.imageUrl)
 
         return (

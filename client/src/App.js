@@ -19,7 +19,6 @@ export default class App extends Component {
     createdContainer: null,
     ingredients: ingredientsFromJson,
     recipe: null,
-    favRecipes: [],
   }
 
 service = new AuthService()
@@ -69,13 +68,12 @@ service = new AuthService()
                   ingredients={this.state.ingredients}
                   container={this.state.createdContainer}
                   recipe={this.state.recipe}
-                  favRecipes={this.state.favRecipes}
                   user={this.state.loggedInUser}
                 />
             } />
           }
           {this.state.loggedInUser &&
-          <Route path='/my-recipes' render={() => <FavRecipes favRecipes={this.state.favRecipes}/>} />
+          <Route path='/my-recipes' render={() => <FavRecipes user={this.state.loggedInUser} />} />
         }
         </Switch>
       </div>

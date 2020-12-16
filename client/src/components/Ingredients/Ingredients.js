@@ -20,7 +20,7 @@ export default class Ingredients extends Component {
         recipe: this.props.recipe,
         recipeIsVisible: false,
         errorMessage: '',
-        favRecipes: this.props.favRecipes
+        favRecipes: this.props.user.favRecipes
     }
 
     service = new IngredientsService()
@@ -184,28 +184,21 @@ export default class Ingredients extends Component {
         })
     }
 
-    // addFavourites = (recipeId) => {
-    //     this.setState({
-    //         favRecipes: [...this.state.favRecipes, recipeId],
-    //         recipeIsVisible: !this.state.recipeIsVisible
-    //     })
-    // }
-
-    addFavourites = (recipeId) => {
+    addFavourites = (recipe) => {
         this.setState(prevState => ({
-            favRecipes : [...prevState.favRecipes, recipeId],
+            favRecipes : [...prevState.favRecipes, recipe],
             recipeIsVisible: !this.state.recipeIsVisible
         }), () => 
-        this.service.saveFavRecipes(recipeId, this.props.user_id)
-        .then(recipeId=> {
-            console.log(recipeId)
-        })
+        this.service.saveFavRecipes(recipe, this.props.user._id)
+            .then(recipe => {
+                console.log(recipe)
+            })
         )
     }
 
     render() {
         const {selectedIngredient, quantity, measure } = this.state.ingredientItem
-        console.log(this.state.favRecipes)
+        console.log(this.props.user)
         return (
             <div>
                 <div className="row">
@@ -306,7 +299,7 @@ export default class Ingredients extends Component {
                                 </div>
                             </div>
                             <button onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</button>
-                            <FaHeart className="icon" onClick={() => this.addFavourites(this.state.recipe.id)}></FaHeart>
+                            <FaHeart className="icon" onClick={() => this.addFavourites(this.state.recipe)}></FaHeart>
                             <a href={`mailto:?subject=Check out this awesome recipe!&body=${this.state.recipe.sourceUrl}`}><IoMdMail className="icon"></IoMdMail></a>
                         </div>
                     }

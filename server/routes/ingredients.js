@@ -190,25 +190,32 @@ router.post('/:id/recipe-details', (req, res) => {
 })
 
 router.post('/my-recipes', (req, res) => {
-    // const {recipeId, userId} = req.body
-    // console.log('reqbody', req.body)
-    // Recipes.findById(userId).populate({path: 'recipeId', model: 'Recipes'}).exec()
-    const {recipeId} = req.body
+    const {recipe} = req.body
     Recipe.create({
-        recipeId: recipeId,
+        recipe: recipe,
         user: req.session.user._id
     })
     .then(response => {
-        console.log(response)
-        User.findById(req.session.user._id).populate({path: 'favRecipes', model: 'Recipe'}).exec()
-        // console.log('user', req.session.user._id)
+        console.log('recipe', response)
+        User.findByIdAndUpdate(
+            {_id: req.session.user._id},
+            {$push:{favRecipes: response}},
+            {new: true}
+        )
+        .then(response => {
+            console.log('user', response)
+            User.findById(req.session.user._id).populate({path: 'favRecipes', model: 'Recipe'}).exec()
             .then(response => {
-                console.log('new response', response.favRecipes)
-                res.status(200).json(response.favRecipes)
+                console.log('favRecipes', response.favRecipes)
+                res.status(200).json(response)
             })
             .catch(err => {
                 console.log(err)
             })
+        })
+        .catch(err => {
+            console.log(err)
+        })
     })
     .catch(err => {
         console.log(err)

@@ -39,8 +39,8 @@ class IngredientsService {
       .then((response) => response.data)
     }
 
-    saveFavRecipes = (recipeId, userId) => {
-        return this.service.post('/ingredients/my-recipes', {recipeId, userId})
+    saveFavRecipes = (recipe, userId) => {
+        return this.service.post('/ingredients/my-recipes', {recipe, userId})
         .then(response => response.data)
     }
 
