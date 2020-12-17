@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-// import {Link} from  'react-router-dom';
+import React, {Component} from 'react';
 import IngredientsService from '../../services/ingredientsService';
+import {Link} from 'react-router-dom';
 import './FavRecipes.css';
 
 export default class FavRecipes extends Component {
 
     state = {
-        favRecipes: this.props.user.favRecipes
+        favRecipes: []
     }
 
     service = new IngredientsService()
 
     componentDidMount() {
         this.service.populateFavRecipes(this.props.user._id)
-        .then(updatedUser => {
-            console.log({updatedUser})
+        .then(response => {
+            console.log('favRecipes', response)
             this.setState({
-                favRecipes: updatedUser.favRecipes
+                favRecipes: response
             })
         })
         .catch(err => {
@@ -26,42 +26,77 @@ export default class FavRecipes extends Component {
 
     removeFavRecipe = (recipeId) => {
         this.service.removeFavRecipe(recipeId)
-        .then(reupdatedUser => {
-            console.log({reupdatedUser})
-            this.setState({
-                favRecipes: reupdatedUser.favRecipes
+            .then(response=> {
+                console.log('updatedFavRecipes', response)
+                this.setState({
+                    favRecipes: response
+                })
             })
-        })
-        .catch(err => {
-            console.log(err)
-        })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     render() {
         console.log(this.state)
+        const { favRecipes } = this.state;
+
         return (
-            <div className="favourite-recipes">
+            <article className="favourite-recipes">
                 <h1>Your favourite recipes</h1>
-                    <div className="favourites-list">
-                        {this.state.favRecipes.map((recipes, index) => {
-                            return (
-                                <div key={index}>
-                                    {/* {recipes._id} */}
-                                    {recipes.recipe.map((recipe , index) => {
-                                        return (
-                                            <div className="one-favourite" key={index}>
-                                                <img src={recipe.image} alt={recipe.title}></img>
-                                                <h4>{recipe.title}</h4>
-                                                <button onClick={() => window.open(recipe.sourceUrl, "_blank")}>Read more</button>
-                                                <button onClick={() => this.removeFavRecipe(recipes._id)}>Remove</button>
-                                            </div>
-                                        )
-                                    } )}
-                                </div>
+                    <section className="favourites-list">
+                        {favRecipes.length <= 0 ? (
+                            <div>
+                                <p>You don't have favourite recipes yet.</p>
+                                <button><Link to="/find-recipe">Find a recipe</Link></button>
+                            </div>
+                        ):(
+                            favRecipes[0].recipes.map(recipeItem => {
+                                if(recipeItem.length === 0) {
+                                    return (
+                                        <div>
+                                            <p>You don't have favourite recipes yet.</p>
+                                            <button><Link to="/find-recipe">Find a recipe</Link></button>
+                                        </div>
+                                    )
+                                }
+                                    return (
+                                        <article className="one-favourite" key={recipeItem._id}>
+                                            <img
+                                                src={recipeItem.recipe.image}
+                                                alt={recipeItem.recipe.title}
+                                                title={recipeItem.recipe.title} 
+                                            />
+                                            <h4>{recipeItem.recipe.title}</h4>
+                                            <button onClick={() => window.open(recipeItem.recipe.sourceUrl, "_blank")}>Read more</button>
+                                            <button onClick={() => this.removeFavRecipe(recipeItem._id)}>Remove</button>
+                                        </article>
+                                    )
+                                })
                             )
-                        })}
-                    </div>
-            </div>
+                        }
+        
+                        {/* {favRecipes.length <= 0 ? (
+                            <div>
+                                <p>You don't have favourite recipes yet.</p>
+                                <button><Link to="/find-recipe">Find a recipe</Link></button>
+                            </div>
+                        ):(
+                            favRecipes[0].recipes.map(recipeItem => (
+                                <article className="one-favourite" key={recipeItem._id}>
+                                    <img
+                                        src={recipeItem.recipe.image}
+                                        alt={recipeItem.recipe.title}
+                                        title={recipeItem.recipe.title} 
+                                    />
+                                    <h4>{recipeItem.recipe.title}</h4>
+                                    <button onClick={() => window.open(recipeItem.recipe.sourceUrl, "_blank")}>Read more</button>
+                                    <button onClick={() => this.removeFavRecipe(recipeItem._id)}>Remove</button>
+                                </article>
+                            ))
+                        )} */}
+                    </section>
+            </article>
         )
     }
 }

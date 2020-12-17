@@ -13,7 +13,6 @@ export default class Ingredients extends Component {
         ingredientItem: {
             selectedIngredient: '',
             quantity: 0,
-            measure: '',
         },
         ingredientsList: [],
         recipesList: [],
@@ -116,14 +115,13 @@ export default class Ingredients extends Component {
 
     submitFormHandler = e => {
         e.preventDefault()
-        this.service.addIngredients(this.state.container._id, this.state.ingredientItem.selectedIngredient, this.state.ingredientItem.quantity, this.state.ingredientItem.measure)
+        this.service.addIngredients(this.state.container._id, this.state.ingredientItem.selectedIngredient, this.state.ingredientItem.quantity)
         .then(response => {
             // console.log(response)
             this.setState({
                 ingredientItem: {
                     selectedIngredient: '',
                     quantity: 0,
-                    measure: '',
                 }
             })
             this.service.populateIngredients(this.state.container._id, this.state.ingredientsList)
@@ -200,7 +198,7 @@ export default class Ingredients extends Component {
     }
 
     render() {
-        const {selectedIngredient, quantity, measure } = this.state.ingredientItem
+        const {selectedIngredient, quantity} = this.state.ingredientItem
         console.log(this.props.user)
         return (
             <div>
@@ -212,19 +210,9 @@ export default class Ingredients extends Component {
                             <input type="text" name="ingredient" onChange={this.searchHandler} value={selectedIngredient}/>
                             {this.renderSuggestions()}
                             <br></br>
-                            <label>Quantity</label>
+                            <label>Quantity (units)</label>
                             <br></br>
                             <input type="number" name="quantity" onChange={this.changeHandler} value={quantity}/>
-                            <br></br>
-                            <label>Measures</label>
-                            <br></br>
-                            <select onChange={this.changeHandler} name="measure" value={measure}>
-                                <option >Select measure</option>
-                                <option value='units'>units</option>
-                                <option value='g'>g</option>
-                                <option value='kg'>kg</option>
-                                <option value='l'>l</option>
-                            </select>
                             <br></br>
                             <button>Add</button>
                         </form>
@@ -234,7 +222,7 @@ export default class Ingredients extends Component {
                         {this.state.ingredientsList.map((item) => {
                             return (
                                 <li key={item._id}>
-                                    {item.quantity} {item.measure} x {item.name} <span><button className="remove-btn" onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
+                                    {item.quantity} x {item.name} <span><button className="remove-btn" onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
                                 </li>
                             )
                         })}

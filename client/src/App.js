@@ -51,9 +51,9 @@ service = new AuthService()
     return (
     <Suspense fallback={<div className="loading-page"><h1>The page is loading.</h1></div>}>
       <div className='App'>
-        <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser}/>
+        <NavBar isLoggedIn={!!this.state.loggedInUser} getTheUser={this.getTheUser} user={this.state.loggedInUser}/>
         {/* !! shortcut to force as boolean */}
-        <h1>env {process.env.REACT_APP_BACKENDURL}</h1>
+        {/* <h1>env {process.env.REACT_APP_BACKENDURL}</h1> */}
         <Switch>
           <Route exact path='/' render={() => <Home isLoggedIn={!!this.state.loggedInUser} user={this.state.loggedInUser}/>} />
           <Route path='/signup' component={Signup} />

@@ -1,15 +1,12 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
-const recipeSchema = new Schema({
-    user: {
-        type: Schema.Types.ObjectId
-    },
-    recipe: [
+const RecipeSchema = new Schema({
+    recipe: {
         
-    ]
+    }
 })
 
-const Recipe = mongoose.model('Recipe', recipeSchema)
+const Recipe = mongoose.model('Recipe', RecipeSchema)
 
 module.exports = Recipe

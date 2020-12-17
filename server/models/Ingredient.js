@@ -9,11 +9,7 @@ const ingredientSchema = new Schema({
     quantity: {
         type: Number,
         required: true,
-    },
-    measure: {
-        type: String,
-        required: true,
-    },
+    }
 })
 
 const Ingredient = mongoose.model('Ingredient', ingredientSchema)

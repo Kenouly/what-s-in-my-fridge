@@ -14,8 +14,8 @@ class IngredientsService {
       .then((response) => response.data)
     }
 
-    addIngredients = (containerId, name, quantity, measure) => {
-      return this.service.post(`/ingredients/${containerId}/ingredients`, {name, quantity, measure})
+    addIngredients = (containerId, name, quantity) => {
+      return this.service.post(`/ingredients/${containerId}/ingredients`, {name, quantity})
       .then(response => response.data)
     }
 

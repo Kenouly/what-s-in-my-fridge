@@ -5,7 +5,7 @@ const IngredientsContainer = require('../models/IngredientsContainer')
 const Ingredient = require('../models/Ingredient')
 const ObjectId = require('mongodb').ObjectID;
 const Recipe = require('../models/Recipe');
-const User = require('../models/User');
+const FavRecipes = require('../models/FavRecipes')
 
 
 //when click on 'Find a recipe' --> create containerId (session id)
@@ -23,16 +23,15 @@ router.post('/create', (req, res)=> {
 
 // id = containerId
 router.post('/:id/ingredients', (req, res) => {
-    const {name, quantity, measure} = req.body
+    const {name, quantity} = req.body
     // console.log('hello')
-    if (!name || !quantity|| !measure) {
-        res.status(400).json({message: 'All fields are mandatory. Please provide ingredient, quantity and measure.'})
+    if (!name || !quantity) {
+        res.status(400).json({message: 'All fields are mandatory. Please provide ingredient and quantity.'})
         return;
     }
     Ingredient.create({
         name,
         quantity,
-        measure,
     })
     .then(response => {
          console.log('ingredients', response)
@@ -189,44 +188,38 @@ router.post('/:id/recipe-details', (req, res) => {
         })
 })
 
-// create recipe and update in User
+// create FavRecipes array that contains recipes (Recipe model) and populate recipes in the container
 router.post('/my-recipes', (req, res) => {
-    const {recipe} = req.body
-    Recipe.create({
-        recipe: recipe,
-        user: req.session.user._id
-    })
-    .then(response => {
-        console.log('recipe', response)
-        User.findByIdAndUpdate(
-            {_id: req.session.user._id},
-            {$push:{favRecipes: response}},
-            {new: true}
-        )
+    const user = req.session.user
+    const { recipe } = req.body
+
+    FavRecipes.find({user: user._id})
         .then(response => {
-            console.log('user', response)
-            User.findById(req.session.user._id).populate({path: 'favRecipes', model: 'Recipe'}).exec()
-            .then(response => {
-                console.log('favRecipes', response.favRecipes)
-                res.status(200).json(response)
-            })
-            .catch(err => {
-                console.log(err)
-            })
+            // console.log({response})
+            if (response.length <= 0) {
+                return FavRecipes.create({user: user._id })
+            }
+            return null;
         })
-        .catch(err => {
-            console.log(err)
+        .then(res => {
+            // console.log({res});
+            return Recipe.create({ recipe })
         })
-    })
-    .catch(err => {
-        console.log(err)
-    })
+        .then(response => {
+            return FavRecipes.findOneAndUpdate(
+                {user: user._id},
+                {$push: {recipes: response}},
+                {new: true}
+            )
+        })
+        .catch(err => console.error(err));
+
 })
 
-// populate recipes in User
+// populate recipes in container (FavRecipes)
 router.post('/:id/my-recipes', (req, res) => {
     const {id} = req.params
-    User.findById(id).populate({path: 'favRecipes', model: 'Recipe'}).exec()
+    FavRecipes.find({user: id}).populate({path: 'recipes', model: 'Recipe'}).exec()
         .then(response => {
             console.log('response',response)
             res.status(200).json(response)
@@ -236,21 +229,23 @@ router.post('/:id/my-recipes', (req, res) => {
         })
 })
 
+// remove recipe, update container (FavRecipe) and populate
 router.post('/my-recipes/:id/remove', (req, res) => {
+    const user = req.session.user
     const { id } = req.params;
     Recipe.findByIdAndRemove(id)
-        .then((recipe) => {
+        .then(recipe => {
             console.log('deletedRecipe', recipe)
-            return User.findOneAndUpdate(
-                {favRecipes : id},
-                {$pull: {favRecipes: id} }, 
+            return FavRecipes.findOneAndUpdate(
+                {recipes : id},
+                {$pull: {recipes: id} }, 
                 {new: true}
                 )
              .then(response => {
-                 console.log('response', response)
-                User.findById(response._id).populate({path: 'favRecipes', model: 'Recipe'}).exec()
+                console.log('response', response)
+                FavRecipes.find({user: user._id}).populate({path: 'recipes', model: 'Recipe'}).exec()
                     .then(response => {
-                        console.log('newresponse',response)
+                        console.log('newFavRecipes',response)
                         res.status(200).json(response)
                     })
                     .catch(err => {

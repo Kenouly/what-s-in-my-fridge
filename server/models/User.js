@@ -22,11 +22,7 @@ const userSchema = new Schema({
     },
     imageUrl: {
         type: String,
-    },
-    favRecipes: [{
-        type: Schema.Types.ObjectId,
-        ref: "Recipe"
-    }]
+    }
 })
 
 const User = mongoose.model('User', userSchema)
