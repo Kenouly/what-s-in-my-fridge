@@ -3,7 +3,6 @@ import {Link} from 'react-router-dom';
 import AuthService from '../../services/authService';
 import Signup from '../Signup/Signup';
 import Login from '../Login/Login';
-import Icon from '../../logo-icon.png';
 import './Home.css';
 
 export default class Home extends Component {
@@ -33,7 +32,7 @@ export default class Home extends Component {
             return (
             <div className="home">
                 <div>
-                    <h1>No idea what to make for lunch/dinner?</h1>
+                    <h1>No idea what to make for lunch/dinner ?</h1>
                     <h3>Check what is in your fridge and let us help you.</h3>
                 </div>
                 <div className="home-button">
@@ -58,10 +57,10 @@ export default class Home extends Component {
         return (
             <div className="home">
                     <div className="home-title">
-                    <h1>No idea what to make for lunch/dinner?</h1>
+                    <h1>No idea what to make for lunch/dinner ?</h1>
                     <h3>Check what is in your fridge and let us help you.</h3>
                     </div>
-                    <button><Link to='/find-recipe/' className="button-text">Find a recipe</Link></button>
+                    <button><Link to='/find-recipe/' style={{textDecoration: "none", color: "white"}}>Find a recipe</Link></button>
             </div>
         )
     }

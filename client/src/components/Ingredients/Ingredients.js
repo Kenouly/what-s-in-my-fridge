@@ -19,7 +19,7 @@ export default class Ingredients extends Component {
         recipe: this.props.recipe,
         recipeIsVisible: false,
         errorMessage: '',
-        favRecipes: this.props.user.favRecipes
+        favRecipes: []
     }
 
     service = new IngredientsService()

@@ -6,9 +6,10 @@ export default class Logout extends Component {
     render() {
         return (
             <div className="logout">
-                <p>User is logged out.</p>
+                <p>You are logged out.</p>
                 <p>Please
-                    <button><Link to='/login'  className="button-text">login</Link></button>
+                    <button><Link to='/login' style={{textDecoration: "none", color: "white"}}>login</Link> </button>
+                    to find more recipes.
                 </p>
             </div>
         )

@@ -25,10 +25,3 @@
     background-color: rgba(0, 0, 0, 0.5);
 }
 
-.button-text {
-    color: var(--secondary-button-text-color);
-    text-decoration: var(--secondary-button-text-decoration);
-    font-size: var(--secondary-button-text-font-size);
-    font-weight: var(--secondary-button-text-font-weight);
-}
-

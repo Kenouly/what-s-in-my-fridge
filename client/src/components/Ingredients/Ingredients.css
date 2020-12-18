@@ -63,6 +63,11 @@ input, select {
     flex: 50%;
 }
 
+.column li {
+    margin: 5px 0px;
+    text-align: left;
+}
+
 .recipe-details {
     background-color: white;
     color: black;

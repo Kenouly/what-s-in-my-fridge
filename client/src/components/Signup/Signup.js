@@ -76,7 +76,7 @@ export default class Signup extends Component {
                     <br></br>
                     <button>Signup</button>
                     <p>Already have an account?
-                        <button><Link to='/login' className="button-text">Login</Link></button>
+                        <button><Link to='/login' style={{textDecoration: "none", color: "white"}}>Login</Link></button>
                     </p>
                 </form>
                 {this.state.errorMessage}

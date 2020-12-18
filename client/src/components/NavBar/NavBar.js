@@ -46,7 +46,7 @@ export default class NavBar extends Component {
                         <Link to="/" className="logo"><img src={Logo} alt="logo"></img></Link>
                         <div className="nav-profile">
                             <p>Welcome {this.props.user.username}</p>
-                            <img src={this.props.user.imageUrl} alt="profile-pic"/>
+                            <Link to="/profile"><img src={this.props.user.imageUrl} alt="profile-pic"/></Link>
                         </div>
                     </div>
                     <nav className={this.state.sidebar ? 'nav-menu active' : 'nav-menu'}>
@@ -60,8 +60,6 @@ export default class NavBar extends Component {
                             <li><Link to='/find-recipe/' className="nav-text">Find a recipe</Link></li>
                             <li><Link to='/my-recipes/' className="nav-text">My recipes</Link></li>
                             <li><Link to='/profile' className="nav-text">My Profile</Link></li>
-                            {/* <li><Link to='/about' className="nav-text">About</Link></li> */}
-                            {/* <li><a href='mailto: kenouly.lovan@gmail.com?subject=Information request' className="nav-text">Contact</a></li> */}
                             <li><Link to='/logout' className="nav-text" onClick={this.logout}>Logout</Link></li>
                         </ul>
                         <div className="contact">
@@ -95,10 +93,8 @@ export default class NavBar extends Component {
                         </Link>
                         </li>
                         <li><Link to='/' className="nav-text">Home</Link></li>
-                        {/* <li><Link to='/about' className="nav-text">About</Link></li> */}
                         <li><Link to='/signup' className="nav-text">Signup</Link></li>
                        <li><Link to='/login' className="nav-text">Login</Link></li>
-                       {/* <li><a href='mailto: kenouly.lovan@gmail.com?subject=Information request' className="nav-text">Contact</a></li> */}
                     </ul>
                     <div className="contact">
                         <a href='mailto: kenouly.lovan@gmail.com?subject=Information request'><IoMdMail className="contact-icon"></IoMdMail></a>
