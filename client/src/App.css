@@ -1,11 +1,13 @@
-@import url('https://fonts.googleapis.com/css2?family=ABeeZee:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Waiting+for+the+Sunrise&display=swap');
 
 :root {
   --navbar-bg-color: rgba(32, 32, 32);
   --navbar-text-color: lightgray;
-  --form-border: solid rgb(255, 255, 255, 0.5) 1px;
-  --form-border-radius: 25px;
+  /* --form-border: solid rgb(255, 255, 255, 0.5) 1px; */
+  --form-border-radius: 20px;
   --form-padding: 30px 100px;
+  --form-bg-color: rgba(32, 32, 32);
   --margin: auto;
   --margin-top: 100px;
   --form-width: 30%;
@@ -15,26 +17,30 @@
   --input-padding: 5px 50px;
   --label-font-weight: bolder;
   --label-font-size: 18px;
-  --secondary-button-bg-color: darkgray;
+  --primary-font-family: 'Montserrat', sans-serif;
+  --secondary-font-family: 'Waiting for the Sunrise', cursive;
+  /* --secondary-button-bg-color: darkgray;
   --secondary-button-text-color: white;
-  --secondary-button-text-decoration: none;
-  --secondary-button-text-font-size: 15px;
+  --secondary-button-text-decoration: none; */
+  /* --secondary-button-text-font-size: 1.2em; */
   --secondary-button-text-font-weight: bolder;
 }
 
 button {
-  background-color: rgba(32, 32, 32);
+  background-color: black;
+  /* background-color: none; */
   border: none;
   padding: 5px 20px;
   color: white;
   border-radius: 5px;
   font-weight: bolder;
-  font-size: 15px;
+  font-size: 1em;
   margin: 0px 5px;
+  text-transform: uppercase;
 }
 
 .App {
-  font-family: 'ABeeZee', sans-serif;
+  font-family: var(--primary-font-family);
   box-sizing: border-box;
   text-align: center;
   background-image: url('background-image.jpg');

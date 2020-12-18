@@ -44,6 +44,10 @@ export default class NavBar extends Component {
                         </div>
                     </Link>
                         <Link to="/" className="logo"><img src={Logo} alt="logo"></img></Link>
+                        <div className="nav-profile">
+                            <p>Welcome {this.props.user.username}</p>
+                            <img src={this.props.user.imageUrl} alt="profile-pic"/>
+                        </div>
                     </div>
                     <nav className={this.state.sidebar ? 'nav-menu active' : 'nav-menu'}>
                         <ul className='nav-menu-items'>

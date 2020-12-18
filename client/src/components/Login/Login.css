@@ -1,12 +1,18 @@
 .login-form {
   border: var(--form-border);
   border-radius: var(--form-border-radius);
+  background-color: var(--form-bg-color);
   /* background-color: rgb(255, 255, 255, 0.5); */
   padding: var(--form-padding);
   margin: var(--margin);
   margin-top: var(--margin-top);
   width: var(--form-width)
 } 
+
+.login-form h1 {
+  font-family: var(--secondary-font-family);
+  font-size: 3em;
+}
 
 input {
     background-color: var(--input-bg-color);
