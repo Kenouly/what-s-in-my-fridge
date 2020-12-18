@@ -70,17 +70,6 @@
     align-items: center;
 }
 
-.close-btn {
-    color: var(--navbar-text-color);
-    margin-left: 140px;
-    margin-top: 40px;
-    font-size: 0.8em;
-}
-
-.close-btn:hover {
-    color: white;
-}
-
 .logo {
   display: block;
   margin-left: auto;

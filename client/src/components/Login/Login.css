@@ -12,12 +12,6 @@
   font-size: 3em;
 }
 
-.login-form button {
-  background-color: var(--secondary-button-bg-color);
-  font-size: var(--secondary-button-text-font-size);
-  font-weight: var(--secondary-button-text-font-weight);
-}
-
 input {
     background-color: var(--input-bg-color);
     border: var(--input-border);

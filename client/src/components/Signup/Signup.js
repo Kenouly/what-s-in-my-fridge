@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {Link, Redirect} from 'react-router-dom'
+import {Redirect} from 'react-router-dom'
 import AuthService from '../../services/authService'
+import Button from '../Button/Button';
 import './Signup.css'
 
 export default class Signup extends Component {
@@ -74,9 +75,9 @@ export default class Signup extends Component {
                         <option value='UltraPro Chef'>UltraPro Chef</option>
                     </select>
                     <br></br>
-                    <button>Signup</button>
+                    <Button type="tertiary">Signup</Button>
                     <p>Already have an account?
-                        <button><Link to='/login' style={{textDecoration: "none", color: "white"}}>Login</Link></button>
+                        <Button type="tertiary" to="/login">Login</Button>
                     </p>
                 </form>
                 {this.state.errorMessage}

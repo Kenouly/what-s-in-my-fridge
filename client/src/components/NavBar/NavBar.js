@@ -5,6 +5,7 @@ import './NavBar.css';
 import Logo from '../../logo.png';
 import { IoMdMail } from 'react-icons/io';
 import { FaWhatsapp, FaFacebook, FaInstagram, FaLinkedin } from 'react-icons/fa';
+import Button from '../Button/Button';
 
 export default class NavBar extends Component {
 
@@ -53,7 +54,7 @@ export default class NavBar extends Component {
                         <ul className='nav-menu-items'>
                             <li className='navbar-toggle'>
                             <Link to="#" className="menu-bars" onClick={this.showSideBar}>
-                                <div className="close-btn">X</div>
+                                <Button type="quaternary">X</Button>
                             </Link>
                             </li>
                             <li><Link to='/' className="nav-text">Home</Link></li> 
@@ -89,7 +90,7 @@ export default class NavBar extends Component {
                     <ul className='nav-menu-items'>
                         <li className='navbar-toggle'>
                         <Link to="#" className="menu-bars" onClick={this.showSideBar}>
-                            <div className='close-btn'>X</div>
+                            <Button type="quaternary">X</Button>
                         </Link>
                         </li>
                         <li><Link to='/' className="nav-text">Home</Link></li>

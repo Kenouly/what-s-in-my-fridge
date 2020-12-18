@@ -55,7 +55,7 @@ service = new AuthService()
         {/* !! shortcut to force as boolean */}
         {/* <h1>env {process.env.REACT_APP_BACKENDURL}</h1> */}
         <Switch>
-          <Route exact path='/' render={() => <Home isLoggedIn={!!this.state.loggedInUser} user={this.state.loggedInUser}/>} />
+          <Route exact path='/' render={() => <Home isLoggedIn={!!this.state.loggedInUser} user={this.state.loggedInUser} getTheUser={this.getTheUser}/>} />
           <Route path='/signup' component={Signup} />
           <Route path='/login' render={() => <Login getTheUser={this.getTheUser}/>}/>
           <Route path='/logout' component={Logout}/>

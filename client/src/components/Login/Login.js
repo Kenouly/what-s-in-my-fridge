@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
+import Button from '../Button/Button';
 import AuthService from '../../services/authService'
 import './Login.css'
 
@@ -25,14 +26,14 @@ export default class Login extends Component {
         e.preventDefault()
         this.service.login(this.state.email, this.state.password)
         .then(user => {
-            console.log(user)
+            console.log(user, this.props)
             this.props.getTheUser(user)
             this.setState({
                 redirect: true
             })
         })
         .catch(err => {
-            console.log(err.response)
+            console.log(err)
             this.setState({
                 errorMessage: err.response.data.message
             })
@@ -51,7 +52,7 @@ export default class Login extends Component {
                     <br></br>
                     <input type="password" name="password" placeholder="password" value={this.state.password} onChange={this.changeHandler}></input>
                     <br></br>
-                    <button>Login</button>
+                    <Button type="tertiary">Login</Button>
                 </form>
                 {this.state.errorMessage}
             </div>

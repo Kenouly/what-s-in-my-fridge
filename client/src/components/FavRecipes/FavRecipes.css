@@ -3,6 +3,11 @@
     margin-top: var(--margin-top);
 }
 
+.favourite-recipes h1 {
+    font-family: var(--secondary-font-family);
+    font-size: 3em;
+}
+
 .favourites-list {
     display: flex;
     flex-direction: row;
@@ -22,7 +27,7 @@
     width: 250px;
 }
 
-.one-favourite button {
-    margin-bottom: 5px;
-    background-color: var(--secondary-button-bg-color);
+.one-favourite a {
+    text-decoration: none;
+    color: white
 }

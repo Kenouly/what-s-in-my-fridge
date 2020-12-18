@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import AuthService from '../../services/authService';
 import './Profile.css';
+import Button from '../Button/Button';
 
 export default class Profile extends Component {
 
@@ -68,7 +69,7 @@ export default class Profile extends Component {
                                 alt=""
                                 onClick={this.showUploadMode}
                         />
-                        <p><button onClick={this.showUploadMode}>Change picture</button></p>
+                        <Button type="secondary" onClick={this.showUploadMode}>Change picture</Button>
                     {this.state.isInUploadMode &&
                         <div className="form-popup">
                             <form>
@@ -77,7 +78,7 @@ export default class Profile extends Component {
                                     name="profilePicture"
                                     onChange={(e) => this.handleFileUpload(e)}
                                 />
-                                <button>Save</button>
+                                <Button type="tertiary">Save</Button>
                             </form>
                         </div>
                     }
@@ -88,7 +89,7 @@ export default class Profile extends Component {
                         <h4>Email</h4>
                         <p>{this.state.email}</p>
                         <h4>Cooking Level</h4>
-                        <p>{this.state.cookingLevel}<span><button onClick={this.showEditMode}>Edit</button></span></p>
+                        <p>{this.state.cookingLevel}<span><Button type="secondary" onClick={this.showEditMode}>Edit</Button></span></p>
                         {this.state.isInEditMode &&
                             <div>
                                 <select name="cookingLevel" defaultValue={this.state.cookingLevel} onChange={this.changeHandler}>
@@ -96,10 +97,12 @@ export default class Profile extends Component {
                                     <option value='Amateur Chef'>Amateur Chef</option>
                                     <option value='UltraPro Chef'>UltraPro Chef</option>
                                 </select>
-                                <button onClick={this.showEditMode}>X</button>
-                                <button onClick={this.submitHandler}>OK</button>
+                                <Button type="tertiary" onClick={this.showEditMode}>X</Button>
+                                <Button type="tertiary" onClick={this.submitHandler}>OK</Button>
                             </div>
                         }
+                        <h4>Your Favourite Recipes</h4>
+                        <Button type="tertiary" to="/my-recipes">View</Button>
                         </div>
                         </div>
                 </div>

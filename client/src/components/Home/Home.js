@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router-dom';
 import AuthService from '../../services/authService';
 import Signup from '../Signup/Signup';
 import Login from '../Login/Login';
+import Button from '../Button/Button';
 import './Home.css';
 
 export default class Home extends Component {
@@ -27,27 +27,33 @@ export default class Home extends Component {
         })
     }
 
+    homeText = () => {
+        return (
+            <div>
+                <h1>No idea what to make for lunch/dinner ?</h1>
+                <h3>Check what is in your fridge and let us help you.</h3>
+            </div>
+        )
+    }
+
     render() {
         if(!this.props.isLoggedIn) {
             return (
             <div className="home">
-                <div>
-                    <h1>No idea what to make for lunch/dinner ?</h1>
-                    <h3>Check what is in your fridge and let us help you.</h3>
-                </div>
+                {this.homeText()}
                 <div className="home-button">
-                    <button onClick={this.showSignupForm}>Signup</button>
+                    <Button type="secondary" onClick={this.showSignupForm}>Signup</Button>
                     {this.state.signupFormIsShown && (
                         <div className="popup">
                             <Signup></Signup>
-                            <p onClick={this.showSignupForm}>Close</p>
+                            <Button type="primary" onClick={this.showSignupForm}>Close</Button>
                         </div>
                     )}
-                    <button onClick={this.showLoginForm}>Login</button>
+                    <Button type="secondary" onClick={this.showLoginForm}>Login</Button>
                     {this.state.loginFormIsShown && (
                         <div className="popup">
-                            <Login></Login>
-                            <p onClick={this.showLoginForm}>Close</p>
+                            <Login getTheUser={this.props.getTheUser}/>
+                            <Button type="primary" onClick={this.showLoginForm}>Close</Button>
                         </div>
                     )}
                 </div>
@@ -56,11 +62,8 @@ export default class Home extends Component {
         }
         return (
             <div className="home">
-                    <div className="home-title">
-                    <h1>No idea what to make for lunch/dinner ?</h1>
-                    <h3>Check what is in your fridge and let us help you.</h3>
-                    </div>
-                    <button><Link to='/find-recipe/' style={{textDecoration: "none", color: "white"}}>Find a recipe</Link></button>
+                    {this.homeText()}
+                    <Button to='/find-recipe' type="secondary">Find a recipe</Button>
             </div>
         )
     }

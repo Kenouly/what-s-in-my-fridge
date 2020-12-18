@@ -3,6 +3,7 @@ import IngredientsService from '../../services/ingredientsService';
 import './Ingredients.css'
 import { FaHeart } from 'react-icons/fa';
 import { IoMdMail } from 'react-icons/io';
+import Button from '../Button/Button';
 
 export default class Ingredients extends Component {
 
@@ -214,7 +215,7 @@ export default class Ingredients extends Component {
                             <br></br>
                             <input type="number" name="quantity" onChange={this.changeHandler} value={quantity}/>
                             <br></br>
-                            <button>Add</button>
+                            <Button type="secondary">Add</Button>
                         </form>
                     </div>
                     <div className="column">
@@ -222,11 +223,11 @@ export default class Ingredients extends Component {
                         {this.state.ingredientsList.map((item) => {
                             return (
                                 <li key={item._id}>
-                                    {item.quantity} x {item.name} <span><button className="remove-btn" onClick={() => this.deleteIngredient(item._id)}>Remove</button></span>
+                                    {item.quantity} x {item.name} <span><Button type="tertiary" onClick={() => this.deleteIngredient(item._id)}>Remove</Button></span>
                                 </li>
                             )
                         })}
-                        <button style={{marginTop: '20px'}}onClick={() => this.findRecipes(this.state.container._id)}>Find a recipe</button>
+                        <Button type="quinary" onClick={() => this.findRecipes(this.state.container._id)}>Find a recipe</Button>
                     </div>
                 {this.state.errorMessage}
                 </div>
@@ -268,7 +269,7 @@ export default class Ingredients extends Component {
                                     })}
                                     </div>
                                 </div>
-                                <button onClick={() => this.getTheRecipe(item.id)}>View recipe</button>
+                                <Button type="tertiary" onClick={() => this.getTheRecipe(item.id)}>View recipe</Button>
                             </div>
                         )
                     })}
@@ -277,7 +278,7 @@ export default class Ingredients extends Component {
                     {this.state.recipeIsVisible &&
                         <div className="recipe-details">
                             <div className="close-popup">
-                                <p onClick={() => this.getTheRecipe(this.state.recipe.id)}>X</p>
+                                <Button type="septanary" onClick={() => this.getTheRecipe(this.state.recipe.id)}>X</Button>
                             </div>
                             <div className="recipe-popup">
                                 <div>
@@ -289,7 +290,7 @@ export default class Ingredients extends Component {
                                     <p>{this.state.recipe.instructions}</p>
                                 </div>
                             </div>
-                            <button onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</button>
+                            <Button type="secondary" onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</Button>
                             <FaHeart className="icon" onClick={() => this.addFavourites(this.state.recipe)}></FaHeart>
                             <a href={`mailto:?subject=Check out this awesome recipe!&body=${this.state.recipe.sourceUrl}`}><IoMdMail className="icon"></IoMdMail></a>
                         </div>

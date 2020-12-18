@@ -19,23 +19,6 @@
   --label-font-size: 18px;
   --primary-font-family: 'Montserrat', sans-serif;
   --secondary-font-family: 'Waiting for the Sunrise', cursive;
-  --secondary-button-bg-color: rgba(255, 255, 255, 0.4);
-  --secondary-button-text-color: white;
-  --secondary-button-text-decoration: none;
-   --secondary-button-text-font-size: 1em;
-  --secondary-button-text-font-weight: bolder;
-}
-
-button {
-  background-color: var(--form-bg-color);
-  border: none;
-  padding: 5px 20px;
-  color: white;
-  border-radius: 5px;
-  font-weight: bolder;
-  font-size: 1em;
-  margin: 0px 5px;
-  text-transform: uppercase;
 }
 
 .App {

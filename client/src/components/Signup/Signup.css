@@ -13,12 +13,6 @@
     font-size: 3em;
 }
 
-.signup-form button {
-    background-color: var(--secondary-button-bg-color);
-    font-size: var(--secondary-button-text-font-size);
-   font-weight: var(--secondary-button-text-font-weight);
-}
-
 label {
     font-weight: var(--label-font-weight);
     font-size: var(--label-font-size)

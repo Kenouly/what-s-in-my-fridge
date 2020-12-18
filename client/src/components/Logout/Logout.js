@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Link} from 'react-router-dom'
+import Button from '../Button/Button';
 import './Logout.css'
 export default class Logout extends Component {
 
@@ -8,7 +8,7 @@ export default class Logout extends Component {
             <div className="logout">
                 <p>You are logged out.</p>
                 <p>Please
-                    <button><Link to='/login' style={{textDecoration: "none", color: "white"}}>login</Link> </button>
+                    <Button type="secondary" to='/login'>login</Button>
                     to find more recipes.
                 </p>
             </div>

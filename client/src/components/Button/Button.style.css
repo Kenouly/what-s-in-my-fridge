@@ -1,0 +1,72 @@
+.btn {
+  border: none;
+  padding: 5px 20px;
+  color: white;
+  border-radius: 5px;
+  font-weight: bolder;
+  font-size: 1em;
+  margin: 10px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.btn-primary {
+    background-color: transparent;
+}
+
+.btn-secondary {
+    background-color: var(--form-bg-color);
+}
+
+.btn-secondary:hover {
+    background-color: #020202;
+}
+
+.btn-link {
+    text-decoration: none;
+}
+
+.btn-tertiary {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-tertiary:hover {
+    background-color: #908f8f66;
+}
+
+.btn-quaternary {
+    background-color: transparent;
+    color: var(--navbar-text-color);
+    margin-left: 140px;
+    margin-top: 40px;
+    font-size: 0.8em;
+}
+
+.btn-quaternary:hover {
+    color: white;
+}
+
+.btn-quinary {
+    background-color: var(--form-bg-color);
+    margin-top: 20px;
+}
+
+.btn-quinary:hover {
+    background-color: #020202;
+}
+
+.btn-senary {
+    background-color: rgba(255, 255, 255, 0.4);
+    margin: 5px;
+}
+
+.btn-senary:hover {
+    background-color: #908f8f66;
+}
+
+.btn-septanary {
+    background-color: transparent;
+    color: black;
+    font-size: 1.2em;
+    margin-left: 90%;
+}
