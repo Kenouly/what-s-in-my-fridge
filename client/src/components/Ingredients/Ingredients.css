@@ -52,7 +52,6 @@ input, select {
     display: flex;
     border: var(--form-border);
     border-radius: var(--form-border-radius);
-    /* background-color: rgb(255, 255, 255, 0.5); */
     padding: var(--form-padding);
     margin: var(--margin);
     margin-top: var(--margin-top);

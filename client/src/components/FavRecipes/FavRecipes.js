@@ -70,6 +70,7 @@ export default class FavRecipes extends Component {
                                             <h4>{recipeItem.recipe.title}</h4>
                                             <button onClick={() => window.open(recipeItem.recipe.sourceUrl, "_blank")}>Read more</button>
                                             <button onClick={() => this.removeFavRecipe(recipeItem._id)}>Remove</button>
+                                            <button><a style={{textDecoration: "none", color: "white"}} href={`mailto:?subject=Check out this awesome recipe!&body=${recipeItem.sourceUrl}`}>Share</a></button>
                                         </article>
                                     )
                                 })
