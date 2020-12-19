@@ -21,7 +21,7 @@
   --secondary-font-family: 'Waiting for the Sunrise', cursive;
 }
 
-.App .loading-page{
+.App {
   font-family: var(--primary-font-family);
   box-sizing: border-box;
   text-align: center;
@@ -34,8 +34,18 @@
   color: white;
 }
 
-/* .loading-page {
-  margin: var(--margin);
+.loading-page {
+    font-family: var(--primary-font-family);
+    box-sizing: border-box;
+    text-align: center;
+    background-image: url('background-image.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    color: white;
+  /* margin: var(--margin);
   margin-top: var(--margin-top);
-  width: 50%;
-} */
+  width: 50%; */
+}
