@@ -8,7 +8,7 @@ const hbs          = require('hbs');
 const mongoose     = require('mongoose');
 const logger       = require('morgan');
 const path         = require('path');
-const helmet = require('helmet')
+
 
 const session = require('express-session')
 const Mongostore = require('connect-mongo')(session)
@@ -28,19 +28,20 @@ const app_name = require('./package.json').name;
 const debug = require('debug')(`${app_name}:${path.basename(__filename).split('.')[0]}`);
 
 const app = express();
+require('./configs/session.config')(app)
 
 // Middleware Setup
 app.use(logger('dev'));
 
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  store: new Mongostore({
-    mongooseConnection: mongoose.connection
-  }),
-  proxy: true,
-  resave: true,
-  saveUninitialized: true
-}))
+// app.use(session({
+//   secret: process.env.SESSION_SECRET,
+//   store: new Mongostore({
+//     mongooseConnection: mongoose.connection
+//   }),
+//   proxy: true,
+//   resave: true,
+//   saveUninitialized: true
+// }))
 
 app.use(cors({
   origin: process.env.NETLIFY_URL,
