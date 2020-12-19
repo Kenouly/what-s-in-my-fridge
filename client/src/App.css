@@ -21,7 +21,7 @@
   --secondary-font-family: 'Waiting for the Sunrise', cursive;
 }
 
-.App {
+.App .loading-page{
   font-family: var(--primary-font-family);
   box-sizing: border-box;
   text-align: center;
@@ -34,8 +34,8 @@
   color: white;
 }
 
-.loading-page {
+/* .loading-page {
   margin: var(--margin);
   margin-top: var(--margin-top);
   width: 50%;
-}
+} */
