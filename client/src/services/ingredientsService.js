@@ -50,7 +50,6 @@ class IngredientsService {
     }
 
     removeFavRecipe = (recipeId) => {
-        console.log('hello')
         return this.service.post(`/ingredients/my-recipes/${recipeId}/remove`)
         .then(response => response.data)
     }

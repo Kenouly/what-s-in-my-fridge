@@ -26,14 +26,14 @@ export default class Login extends Component {
         e.preventDefault()
         this.service.login(this.state.email, this.state.password)
         .then(user => {
-            console.log(user, this.props)
+            // console.log(user, this.props)
             this.props.getTheUser(user)
             this.setState({
                 redirect: true
             })
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
             this.setState({
                 errorMessage: err.response.data.message
             })
@@ -42,7 +42,7 @@ export default class Login extends Component {
 
     render() {
         if(this.state.redirect){
-            return <Redirect to="/"></Redirect>
+            return <Redirect to="/" />
         }
         return (
             <div className="login-form">

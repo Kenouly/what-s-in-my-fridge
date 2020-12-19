@@ -7,7 +7,7 @@ const ObjectId = require('mongodb').ObjectID;
 const uploadCloud = require('../configs/cloudinary')
 
 router.post('/signup', async (req, res) => {
-    const {username, email, password, cookingLevel, favRecipes} = req.body
+    const {username, email, password, cookingLevel} = req.body
     
     if (!username || !email || !password || !cookingLevel) {
         res.status(400).json({message: 'All fields are mandatory. Please provide your username, email, password and cooking level.'})
@@ -30,7 +30,7 @@ router.post('/signup', async (req, res) => {
         const salt = bcrypt.genSaltSync(bcryptSalt)
         const hashPass = bcrypt.hashSync(password, salt)
 
-        const user = await User.create({username: username, email: email, password: hashPass, cookingLevel: cookingLevel, favRecipes: favRecipes})
+        const user = await User.create({username: username, email: email, password: hashPass, cookingLevel: cookingLevel})
 
         req.session.user = user
         res.status(200).json(user)

@@ -2,6 +2,10 @@
     list-style: none;
 }
 
+.suggestions:hover {
+    background-color: var(--form-bg-color);
+}
+
 label {
     font-weight: var(--label-font-weight);
     font-size: var(--label-font-size)
@@ -105,5 +109,5 @@ input, select {
     font-size: 2em;
     margin: 0px 10px;
     color: black;
+    cursor: pointer;
 }
-

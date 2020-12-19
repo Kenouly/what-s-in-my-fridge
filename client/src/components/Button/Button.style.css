@@ -70,3 +70,12 @@
     font-size: 1.2em;
     margin-left: 90%;
 }
+
+.btn-octonary {
+    margin: 0px 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.btn-octonary:hover {
+    background-color: #908f8f66;
+}

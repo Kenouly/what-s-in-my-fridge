@@ -34,19 +34,19 @@ service = new AuthService()
       }
     })
     .catch((err) => {
-      console.log(err)
+      // console.log(err)
     })
   }
 
   getTheUser = user => {
-    console.log(user)
+    // console.log(user)
     this.setState({
       loggedInUser: user
     })
   }
 
   render() {
-    console.log(this.state)
+    // console.log(this.state)
 
     return (
     <Suspense fallback={<div className="loading-page"><h1>The page is loading.</h1></div>}>

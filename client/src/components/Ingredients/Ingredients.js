@@ -36,7 +36,7 @@ export default class Ingredients extends Component {
             }
          })
         .catch((err) => {
-            console.log(err)
+            // console.log(err)
         })
     }
 
@@ -57,7 +57,7 @@ export default class Ingredients extends Component {
             const suggestions = this.state.ingredients.filter((ingredient) => {
                     return ingredient.name.toLowerCase().includes(searchIngredient)
                 })
-                console.log('suggestions', suggestions)
+                // console.log('suggestions', suggestions)
             this.setState({
                 suggestions: suggestions.slice(0, 5),
                 ingredientItem: {
@@ -133,11 +133,11 @@ export default class Ingredients extends Component {
                 })
             })
             .catch(err => {
-                console.log(err)
+                // console.log(err)
             })
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
             this.setState({
                 errorMessage: err.response.data.message
             })
@@ -154,7 +154,7 @@ export default class Ingredients extends Component {
             })
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
         })
     }
 
@@ -162,13 +162,13 @@ export default class Ingredients extends Component {
         // console.log('containerId', containerId)
         this.service.findRecipes(containerId)
         .then(recipes => {
-            console.log(recipes)
+            // console.log(recipes)
             this.setState({
                 recipesList: recipes
             })
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
             this.setState({
                 errorMessage: err.response.data.message
             })
@@ -178,7 +178,7 @@ export default class Ingredients extends Component {
     getTheRecipe = (recipeId) => {
         this.service.getRecipeDetails(recipeId)
         .then(recipe => {
-            console.log(recipe)
+            // console.log(recipe)
             this.setState({
                 recipe: recipe,
                 recipeIsVisible: !this.state.recipeIsVisible
@@ -193,14 +193,14 @@ export default class Ingredients extends Component {
         }), () => 
         this.service.saveFavRecipes(recipe, this.props.user._id)
             .then(recipe => {
-                console.log(recipe)
+                // console.log(recipe)
             })
         )
     }
 
     render() {
         const {selectedIngredient, quantity} = this.state.ingredientItem
-        console.log(this.props.user)
+        // console.log(this.props.user)
         return (
             <div>
                 <div className="row">
@@ -223,7 +223,7 @@ export default class Ingredients extends Component {
                         {this.state.ingredientsList.map((item) => {
                             return (
                                 <li key={item._id}>
-                                    {item.quantity} x {item.name} <span><Button type="tertiary" onClick={() => this.deleteIngredient(item._id)}>Remove</Button></span>
+                                    {item.quantity} x {item.name} <span><Button type="octonary" onClick={() => this.deleteIngredient(item._id)}>Remove</Button></span>
                                 </li>
                             )
                         })}
@@ -244,9 +244,9 @@ export default class Ingredients extends Component {
                         return (
                             <div key={item.id} className="one-recipe">
                                 <div>
-                                    <h4>{item.title}</h4>
+                                    <h3>{item.title}</h3>
                                 </div>
-                                <img src={item.image} alt=""></img>
+                                <img src={item.image} alt="" />
                                 <div>
                                     <h4>Missing ingredients:</h4>
                                     <div className="missing-ingredients">
@@ -282,7 +282,7 @@ export default class Ingredients extends Component {
                             </div>
                             <div className="recipe-popup">
                                 <div>
-                                    <img src={this.state.recipe.image} alt={this.state.recipe.name}></img>
+                                    <img src={this.state.recipe.image} alt={this.state.recipe.name} />
                                 </div>
                                 <div className="recipe-info">
                                     <h4>{this.state.recipe.title}</h4>
@@ -291,8 +291,8 @@ export default class Ingredients extends Component {
                                 </div>
                             </div>
                             <Button type="secondary" onClick={()=> window.open(this.state.recipe.sourceUrl, "_blank")}>Read more</Button>
-                            <FaHeart className="icon" onClick={() => this.addFavourites(this.state.recipe)}></FaHeart>
-                            <a href={`mailto:?subject=Check out this awesome recipe!&body=${this.state.recipe.sourceUrl}`}><IoMdMail className="icon"></IoMdMail></a>
+                            <FaHeart className="icon" onClick={() => this.addFavourites(this.state.recipe)} />
+                            <a href={`mailto:?subject=Check out this awesome recipe!&body=${this.state.recipe.sourceUrl}`}><IoMdMail className="icon" /></a>
                         </div>
                     }
                     </div>

@@ -93,6 +93,13 @@
     margin-left: 5px;
 }
 
+.fav-icon {
+    font-size: 1.5em;
+    margin: 10px;
+    color: white;
+    cursor: pointer;
+}
+
 .contact {
     position: fixed;
     bottom: 20px;

@@ -38,14 +38,14 @@ export default class Profile extends Component {
         e.preventDefault()
         this.service.edit(this.props.user._id, this.state.cookingLevel)
         .then((user) => {
-            console.log(user)
+            // console.log(user)
             this.setState({
                 cookingLevel: this.state.cookingLevel,
                 isInEditMode: false
          })
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
         })
     }
 
@@ -56,8 +56,8 @@ export default class Profile extends Component {
   }
 
     render() {
-        console.log(this.state.cookingLevel)
-        console.log(this.props.user.imageUrl)
+        // console.log(this.state.cookingLevel)
+        // console.log(this.props.user.imageUrl)
 
         return (
             <div className="profile">

@@ -12,7 +12,7 @@ export default class Signup extends Component {
         password: '',
         cookingLevel: '',
         errorMessage: '',
-        redirect: false
+        redirect: false,
     }
 
     service = new AuthService()
@@ -21,7 +21,7 @@ export default class Signup extends Component {
         e.preventDefault()
         this.service.signup(this.state.username, this.state.email, this.state.password, this.state.cookingLevel)
         .then(response => {
-            console.log(response)
+            // console.log(response)
             this.setState({
                 username: '',
                 email: '',
@@ -31,7 +31,7 @@ export default class Signup extends Component {
             })
         })
         .catch(err => {
-            console.log(err)
+            // console.log(err)
             this.setState({
                 errorMessage: err.response.data.message
             })
@@ -45,10 +45,16 @@ export default class Signup extends Component {
         })
     }
 
+    handleFileUpload = (e) => {
+        const uploadData = new FormData();
+        uploadData.append('picture', e.target.files[0]);
+        this.service.imageUpload(uploadData);
+    }
+
     render() {
-        console.log(this.state)
+        // console.log(this.state)
         if(this.state.redirect) {
-            return <Redirect to='/login'></Redirect>
+            return <Redirect to='/login'/>
         }
         return (
             <div className="signup-form">

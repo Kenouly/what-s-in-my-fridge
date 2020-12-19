@@ -31,3 +31,14 @@
     text-decoration: none;
     color: white
 }
+
+.icons {
+    font-size: 1.5em;
+    margin: 10px 5px;
+    color: white;
+    cursor: pointer;
+}
+
+.icons:hover {
+    color: rgba(255, 255, 255, 0.4);
+}

@@ -45,7 +45,7 @@ export default class Home extends Component {
                     <Button type="secondary" onClick={this.showSignupForm}>Signup</Button>
                     {this.state.signupFormIsShown && (
                         <div className="popup">
-                            <Signup></Signup>
+                            <Signup />
                             <Button type="primary" onClick={this.showSignupForm}>Close</Button>
                         </div>
                     )}
